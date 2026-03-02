@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="siteTitle">コーポレートサイト</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="/" class="header__logo" id="headerLogo">サイト名</a>
+      <nav class="header__nav" id="headerNav">
+        <ul class="header__nav-list" id="navList"></ul>
+        <a href="#" class="header__nav-recruit" id="navRecruit">採用情報ページ</a>
+      </nav>
+      <div class="header__actions">
+        <a href="tel:" class="header__phone" id="headerPhone">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          <span id="phoneNumber"></span>
+        </a>
+        <a href="#" class="header__cta" id="headerCta">お問い合わせ</a>
+      </div>
+      <button class="header__hamburger" id="hamburger" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="heroSection">
+    <div class="hero__inner">
+      <div class="hero__text">
+        <p class="hero__tagline" id="heroTagline"></p>
+      </div>
+      <div class="hero__image">
+        <img id="heroImage" src="" alt="メインビジュアル">
+      </div>
+    </div>
+    <a href="#" class="hero__contact-float" id="heroContact">お問い合わせ</a>
+  </section>
+
+  <!-- ========== NEWS ========== -->
+  <section class="section news" id="news">
+    <div class="section__inner">
+      <h2 class="section__title">
+        <span class="section__title-en" id="newsTitleEn"></span>
+        <span class="section__title-ja" id="newsTitleJa"></span>
+      </h2>
+      <div class="news__content">
+        <dl class="news__list" id="newsList"></dl>
+        <a href="#" class="news__more" id="newsMore">一覧へ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MESSAGE ========== -->
+  <section class="section message" id="message">
+    <div class="section__inner">
+      <h2 class="section__title">
+        <span class="section__title-en" id="messageTitleEn"></span>
+        <span class="section__title-ja" id="messageTitleJa"></span>
+      </h2>
+      <div class="message__content">
+        <div class="message__image">
+          <img id="messageImage" src="" alt="メッセージ">
+        </div>
+        <div class="message__text">
+          <h3 class="message__heading" id="messageHeading"></h3>
+          <div class="message__body" id="messageBody"></div>
+        </div>
+      </div>
+      <div class="message__values" id="messageValues"></div>
+      <div class="message__buttons" id="messageButtons"></div>
+    </div>
+  </section>
+
+  <!-- ========== SERVICE ========== -->
+  <section class="section service" id="service">
+    <div class="section__inner">
+      <h2 class="section__title">
+        <span class="section__title-en" id="serviceTitleEn"></span>
+        <span class="section__title-ja" id="serviceTitleJa"></span>
+      </h2>
+      <div class="service__grid" id="serviceGrid"></div>
+    </div>
+  </section>
+
+  <!-- ========== PHOTO ========== -->
+  <section class="section photo" id="photo">
+    <div class="section__inner">
+      <h2 class="section__title">
+        <span class="section__title-en" id="photoTitleEn"></span>
+        <span class="section__title-ja" id="photoTitleJa"></span>
+      </h2>
+      <div class="photo__grid" id="photoGrid"></div>
+    </div>
+  </section>
+
+  <!-- ========== ACCESS ========== -->
+  <section class="section access" id="access">
+    <div class="section__inner">
+      <h2 class="section__title">
+        <span class="section__title-en" id="accessTitleEn"></span>
+        <span class="section__title-ja" id="accessTitleJa"></span>
+      </h2>
+      <div class="access__offices" id="accessOffices"></div>
+      <p class="access__note" id="accessNote"></p>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer" id="footer">
+    <div class="footer__inner">
+      <div class="footer__links" id="footerLinks"></div>
+      <p class="footer__copyright" id="footerCopyright"></p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

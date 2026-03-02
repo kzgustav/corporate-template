@@ -1,0 +1,37 @@
+{
+  "site": {
+    "title": "とことんウェブ コーポレートプロ＋AI デモサイト",
+    "tagline": "企業の魅力を最大限まで引き出すコーポレートサイト",
+    "phone": "03-5695-3711",
+    "contactUrl": "/contact/",
+    "recruitUrl": "https://tokon3g.jbplt.jp/",
+    "copyright": "© TOKON HOLDINGS. All Rights Reserved."
+  },
+  "theme": {
+    "primaryColor": "#1a2e5a",
+    "primaryLight": "#2a4a8a",
+    "accentColor": "#c8a45c",
+    "textColor": "#333333",
+    "textLight": "#666666",
+    "bgColor": "#ffffff",
+    "bgLight": "#f5f5f5",
+    "bgDark": "#1a2e5a",
+    "headerBg": "rgba(26, 46, 90, 0.95)",
+    "fontFamily": "'Noto Sans JP', sans-serif",
+    "fontFamilyEn": "'Montserrat', sans-serif",
+    "borderRadius": "4px"
+  },
+  "nav": [
+    { "label": "最新情報", "href": "#news" },
+    { "label": "メッセージ", "href": "#message" },
+    { "label": "サービス", "href": "#service" },
+    { "label": "職場風景", "href": "#photo" },
+    { "label": "アクセス", "href": "#access" }
+  ],
+  "footer": {
+    "links": [
+      { "label": "FAQ", "href": "/faq/" },
+      { "label": "プライバシーポリシー", "href": "/privacy-policy/" }
+    ]
+  }
+}

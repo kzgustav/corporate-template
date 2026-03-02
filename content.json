@@ -1,0 +1,107 @@
+{
+  "hero": {
+    "image": "https://tokondemo.com/tokotonweb/corporate-pro-ai/wps/wp-content/uploads/2024/08/6345065ead093e1740c99a63545c7d19-323x575.jpg",
+    "heading": "",
+    "subheading": ""
+  },
+  "news": {
+    "titleEn": "NEWS",
+    "titleJa": "最新情報",
+    "listUrl": "/news/",
+    "items": [
+      {
+        "date": "2023.10.20",
+        "title": "お知らせタイトルが入ります",
+        "url": "#"
+      }
+    ]
+  },
+  "message": {
+    "titleEn": "MESSAGE",
+    "titleJa": "メッセージ",
+    "image": "https://tokondemo.com/tokotonweb/corporate-pro-ai/wps/wp-content/uploads/2023/10/merit02-530x356.jpg",
+    "heading": "タイトル",
+    "body": "ダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキスト。\nダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキスト。",
+    "values": [
+      {
+        "titleEn": "VISION",
+        "titleJa": "ビジョン",
+        "catch": "キャッチ",
+        "body": "ダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキスト。"
+      },
+      {
+        "titleEn": "MISSION",
+        "titleJa": "ミッション",
+        "catch": "キャッチ",
+        "body": "ダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキスト。"
+      }
+    ],
+    "buttons": [
+      { "label": "代表紹介", "url": "/profile/" },
+      { "label": "会社概要", "url": "/company/" }
+    ]
+  },
+  "service": {
+    "titleEn": "SERVICE",
+    "titleJa": "サービス",
+    "items": [
+      {
+        "image": "https://tokondemo.com/tokotonweb/corporate-pro-ai/wps/wp-content/uploads/2023/11/photo04a-575x386.jpg",
+        "title": "Indeed",
+        "body": "ダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキスト。",
+        "url": "#",
+        "linkText": "詳細を見る"
+      },
+      {
+        "image": "https://tokondemo.com/tokotonweb/corporate-pro-ai/wps/wp-content/uploads/2023/09/photo01-575x386.jpg",
+        "title": "採用情報",
+        "body": "ダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキスト。",
+        "url": "https://tokon3g.jbplt.jp/",
+        "linkText": "詳細"
+      }
+    ]
+  },
+  "photo": {
+    "titleEn": "PHOTO",
+    "titleJa": "職場風景",
+    "images": [
+      "https://tokondemo.com/tokotonweb/corporate-pro-ai/wps/wp-content/uploads/2023/09/photo01-290x195.jpg",
+      "https://tokondemo.com/tokotonweb/corporate-pro-ai/wps/wp-content/uploads/2023/09/photo02-290x195.jpg",
+      "https://tokondemo.com/tokotonweb/corporate-pro-ai/wps/wp-content/uploads/2023/09/photo03-290x195.jpg",
+      "https://tokondemo.com/tokotonweb/corporate-pro-ai/wps/wp-content/uploads/2023/11/photo04a-290x195.jpg",
+      "https://tokondemo.com/tokotonweb/corporate-pro-ai/wps/wp-content/uploads/2023/11/photo05a-290x195.jpg",
+      "https://tokondemo.com/tokotonweb/corporate-pro-ai/wps/wp-content/uploads/2023/09/photo06-290x195.jpg"
+    ]
+  },
+  "access": {
+    "titleEn": "ACCESS",
+    "titleJa": "アクセス",
+    "offices": [
+      {
+        "name": "本社",
+        "address": "〒103-0014 東京都中央区日本橋蛎殻町1-33-11　味岡蛎殻町ビル4階",
+        "mapUrl": "",
+        "isMain": true
+      },
+      {
+        "name": "いちごビル",
+        "address": "〒103-0014 東京都中央区日本橋蛎殻町1-36-5　いちご箱崎ビル9階",
+        "mapUrl": "https://goo.gl/maps/ZftVquPULJsKAc289",
+        "isMain": false
+      },
+      {
+        "name": "仙台支社",
+        "address": "〒980-6009 宮城県仙台市青葉区中央4-6-1　SS30ビル9階",
+        "mapUrl": "https://g.page/tokon_sendai?share",
+        "isMain": false
+      },
+      {
+        "name": "名古屋支社",
+        "address": "〒460-0003 愛知県名古屋市中区錦3-7-9　太陽生命名古屋第2ビル 4階",
+        "mapUrl": "https://g.page/tokon_nagoya?share",
+        "isMain": false
+      }
+    ],
+    "note": "※表示される航空写真・地図・施設情報はデータ作成時点のものであり、現状と異なる場合があります。\n※地図上に表示されるアイコンは、実際の所在地とは異なる場合があります。"
+  }
+}
