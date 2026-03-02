@@ -1,0 +1,2 @@
+# corporate-template
+とことんテスト
