@@ -84,6 +84,14 @@
     if (hero.image) {
       document.getElementById('heroImage').src = hero.image;
     }
+
+    // Hero background image (parallax)
+    const heroBg = document.querySelector('.hero__bg');
+    const bgImage = cfg.theme.heroBackground;
+    if (bgImage) {
+      heroBg.classList.add('has-image');
+      heroBg.style.backgroundImage = `url(${bgImage})`;
+    }
   }
 
   // ==========================================

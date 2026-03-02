@@ -19,7 +19,8 @@
     "headerBg": "rgba(26, 46, 90, 0.95)",
     "fontFamily": "'Noto Sans JP', sans-serif",
     "fontFamilyEn": "'Montserrat', sans-serif",
-    "borderRadius": "4px"
+    "borderRadius": "4px",
+    "heroBackground": ""
   },
   "nav": [
     { "label": "最新情報", "href": "#news" },

@@ -654,6 +654,16 @@
           ${colorField('アクセントカラー', 'accentColor', t.accentColor)}
         </div>
         <div class="cms__card">
+          <div class="cms__card-title">ヒーロー背景画像 <span class="badge">パララックス対応</span></div>
+          <div class="cms__preview-note">
+            💡 画像URLを設定するとヒーローにパララックス背景が表示されます。空欄ならグラデーション背景になります。
+          </div>
+          <div class="cms__field">
+            <label class="cms__label">背景画像URL</label>
+            <input class="cms__input" type="text" value="${esc(t.heroBackground || '')}" onchange="config.theme.heroBackground=this.value" placeholder="https://example.com/hero-bg.jpg">
+          </div>
+        </div>
+        <div class="cms__card">
           <div class="cms__card-title">テキスト・背景</div>
           ${colorField('テキストカラー', 'textColor', t.textColor)}
           ${colorField('テキスト（サブ）', 'textLight', t.textLight || '#6b7280')}
