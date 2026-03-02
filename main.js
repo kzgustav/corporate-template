@@ -1,21 +1,17 @@
 /**
- * Corporate Template - Main JS
- * JSON設定ファイルからサイトを動的に構築
+ * Corporate Template - Modern JS
+ * JSON-driven rendering + rich scroll animations
  */
 
-(async function() {
+(async function () {
   'use strict';
 
-  // ========== JSON読み込み ==========
   const [config, content] = await Promise.all([
     fetch('config.json').then(r => r.json()),
     fetch('content.json').then(r => r.json())
   ]);
 
-  // ========== テーマ適用 ==========
   applyTheme(config.theme);
-
-  // ========== 各セクション描画 ==========
   renderHeader(config);
   renderHero(config, content.hero);
   renderNews(content.news);
@@ -24,75 +20,74 @@
   renderPhoto(content.photo);
   renderAccess(content.access);
   renderFooter(config);
+  initAnimations();
   initInteractions();
 
   // ==========================================
-  // テーマをCSS変数に適用
+  // Theme → CSS Variables
   // ==========================================
   function applyTheme(theme) {
     const root = document.documentElement;
     if (!theme) return;
-    const mapping = {
+    const map = {
       primaryColor: '--primary',
       primaryLight: '--primary-light',
       accentColor: '--accent',
       textColor: '--text',
       textLight: '--text-light',
       bgColor: '--bg',
-      bgLight: '--bg-light',
+      bgLight: '--bg-warm',
       bgDark: '--bg-dark',
       headerBg: '--header-bg',
       fontFamily: '--font-ja',
       fontFamilyEn: '--font-en',
       borderRadius: '--radius'
     };
-    Object.entries(mapping).forEach(([key, cssVar]) => {
-      if (theme[key]) {
-        root.style.setProperty(cssVar, theme[key]);
-      }
+    Object.entries(map).forEach(([key, cssVar]) => {
+      if (theme[key]) root.style.setProperty(cssVar, theme[key]);
     });
-
-    // タイトル
     document.getElementById('siteTitle').textContent = config.site.title || '';
   }
 
   // ==========================================
-  // ヘッダー
+  // Header
   // ==========================================
   function renderHeader(cfg) {
     const { site, nav } = cfg;
-
-    document.getElementById('headerLogo').textContent = site.title;
+    document.querySelector('.header__logo-text').textContent = site.title;
     document.getElementById('phoneNumber').textContent = site.phone;
     document.getElementById('headerPhone').href = `tel:${site.phone.replace(/-/g, '')}`;
     document.getElementById('headerCta').href = site.contactUrl;
-    document.getElementById('heroContact').href = site.contactUrl;
+    document.getElementById('sideCta').href = site.contactUrl;
 
     if (site.recruitUrl) {
       document.getElementById('navRecruit').href = site.recruitUrl;
     }
 
-    // ナビゲーション
     const navList = document.getElementById('navList');
     nav.forEach(item => {
       const li = document.createElement('li');
       li.innerHTML = `<a href="${item.href}">${item.label}</a>`;
       navList.appendChild(li);
     });
+
+    // Footer logo
+    document.getElementById('footerLogo').textContent = site.title;
   }
 
   // ==========================================
-  // ヒーロー
+  // Hero
   // ==========================================
   function renderHero(cfg, hero) {
     document.getElementById('heroTagline').textContent = cfg.site.tagline;
+    document.getElementById('heroCta').href = cfg.site.contactUrl;
     if (hero.image) {
       document.getElementById('heroImage').src = hero.image;
     }
   }
 
   // ==========================================
-  // NEWS
+  // News
   // ==========================================
   function renderNews(news) {
     document.getElementById('newsTitleEn').textContent = news.titleEn;
@@ -100,19 +95,22 @@
     document.getElementById('newsMore').href = news.listUrl;
 
     const list = document.getElementById('newsList');
+    list.setAttribute('data-stagger', '');
     news.items.forEach(item => {
       const div = document.createElement('div');
       div.className = 'news__item';
       div.innerHTML = `
-        <dt class="news__date">${item.date}</dt>
-        <dd class="news__item-title"><a href="${item.url}">${item.title}</a></dd>
+        <span class="news__date">${item.date}</span>
+        <div class="news__item-title"><a href="${item.url}">${item.title}</a></div>
+        <svg class="news__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       `;
+      div.addEventListener('click', () => { if (item.url) window.location.href = item.url; });
       list.appendChild(div);
     });
   }
 
   // ==========================================
-  // MESSAGE
+  // Message
   // ==========================================
   function renderMessage(msg) {
     document.getElementById('messageTitleEn').textContent = msg.titleEn;
@@ -120,7 +118,6 @@
     document.getElementById('messageImage').src = msg.image;
     document.getElementById('messageHeading').textContent = msg.heading;
 
-    // 本文（改行対応）
     const bodyEl = document.getElementById('messageBody');
     msg.body.split('\n').forEach(line => {
       const p = document.createElement('p');
@@ -128,8 +125,8 @@
       bodyEl.appendChild(p);
     });
 
-    // Vision / Mission カード
     const valuesEl = document.getElementById('messageValues');
+    valuesEl.setAttribute('data-stagger', '');
     msg.values.forEach(v => {
       const card = document.createElement('div');
       card.className = 'message__value-card';
@@ -142,7 +139,6 @@
       valuesEl.appendChild(card);
     });
 
-    // ボタン
     const btnsEl = document.getElementById('messageButtons');
     msg.buttons.forEach(btn => {
       const a = document.createElement('a');
@@ -154,13 +150,14 @@
   }
 
   // ==========================================
-  // SERVICE
+  // Service
   // ==========================================
   function renderService(svc) {
     document.getElementById('serviceTitleEn').textContent = svc.titleEn;
     document.getElementById('serviceTitleJa').textContent = svc.titleJa;
 
     const grid = document.getElementById('serviceGrid');
+    grid.setAttribute('data-stagger', '');
     svc.items.forEach(item => {
       const card = document.createElement('div');
       card.className = 'service__card';
@@ -171,7 +168,10 @@
         <div class="service__card-body">
           <h3 class="service__card-title">${item.title}</h3>
           <p class="service__card-text">${item.body}</p>
-          <a href="${item.url}" class="service__card-link">${item.linkText}</a>
+          <a href="${item.url}" class="service__card-link">
+            <span>${item.linkText}</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
       `;
       grid.appendChild(card);
@@ -179,29 +179,31 @@
   }
 
   // ==========================================
-  // PHOTO
+  // Photo
   // ==========================================
   function renderPhoto(photo) {
     document.getElementById('photoTitleEn').textContent = photo.titleEn;
     document.getElementById('photoTitleJa').textContent = photo.titleJa;
 
     const grid = document.getElementById('photoGrid');
+    grid.setAttribute('data-stagger', '');
     photo.images.forEach((src, i) => {
       const div = document.createElement('div');
       div.className = 'photo__item';
-      div.innerHTML = `<img src="${src}" alt="職場風景${i + 1}">`;
+      div.innerHTML = `<img src="${src}" alt="職場風景${i + 1}" loading="lazy">`;
       grid.appendChild(div);
     });
   }
 
   // ==========================================
-  // ACCESS
+  // Access
   // ==========================================
   function renderAccess(acc) {
     document.getElementById('accessTitleEn').textContent = acc.titleEn;
     document.getElementById('accessTitleJa').textContent = acc.titleJa;
 
     const container = document.getElementById('accessOffices');
+    container.setAttribute('data-stagger', '');
     acc.offices.forEach(office => {
       const div = document.createElement('div');
       div.className = `access__office${office.isMain ? ' is-main' : ''}`;
@@ -210,19 +212,22 @@
         <p class="access__office-address">${office.address}</p>
       `;
       if (office.mapUrl) {
-        html += `<a href="${office.mapUrl}" target="_blank" rel="noopener" class="access__office-map">📍 Google Map</a>`;
+        html += `
+          <a href="${office.mapUrl}" target="_blank" rel="noopener" class="access__office-map">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Google Map</span>
+          </a>`;
       }
       div.innerHTML = html;
       container.appendChild(div);
     });
 
-    // 注意書き
     const noteEl = document.getElementById('accessNote');
     noteEl.innerHTML = acc.note.replace(/\n/g, '<br>');
   }
 
   // ==========================================
-  // FOOTER
+  // Footer
   // ==========================================
   function renderFooter(cfg) {
     const linksEl = document.getElementById('footerLinks');
@@ -232,15 +237,34 @@
       a.textContent = link.label;
       linksEl.appendChild(a);
     });
-
     document.getElementById('footerCopyright').textContent = cfg.site.copyright;
   }
 
   // ==========================================
-  // インタラクション
+  // Scroll Animations
+  // ==========================================
+  function initAnimations() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    document.querySelectorAll('[data-anim], [data-stagger]').forEach(el => {
+      observer.observe(el);
+    });
+  }
+
+  // ==========================================
+  // Interactions
   // ==========================================
   function initInteractions() {
-    // ハンバーガーメニュー
+    // Hamburger
     const hamburger = document.getElementById('hamburger');
     const nav = document.getElementById('headerNav');
 
@@ -250,7 +274,6 @@
       document.body.style.overflow = nav.classList.contains('is-open') ? 'hidden' : '';
     });
 
-    // メニュー内リンクでメニュー閉じる
     nav.addEventListener('click', (e) => {
       if (e.target.tagName === 'A' && e.target.getAttribute('href')?.startsWith('#')) {
         hamburger.classList.remove('active');
@@ -259,34 +282,47 @@
       }
     });
 
-    // スクロールでヘッダー背景変化
+    // Header scroll state
     const header = document.getElementById('header');
+    const sideCta = document.getElementById('sideCta');
+    let ticking = false;
+
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 100) {
-        header.style.background = 'rgba(26, 46, 90, 0.98)';
-      } else {
-        header.style.background = '';
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+
+          // Header background
+          if (scrollY > 60) {
+            header.classList.add('is-scrolled');
+          } else {
+            header.classList.remove('is-scrolled');
+          }
+
+          // Side CTA visibility
+          if (scrollY > 500) {
+            sideCta.classList.add('is-visible');
+          } else {
+            sideCta.classList.remove('is-visible');
+          }
+
+          ticking = false;
+        });
+        ticking = true;
       }
     });
 
-    // Intersection Observer でフェードイン
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+    // Parallax on hero decorations
+    window.addEventListener('mousemove', (e) => {
+      const deco1 = document.querySelector('.hero__image-deco');
+      const deco2 = document.querySelector('.hero__image-deco2');
+      if (!deco1 || !deco2) return;
 
-    document.querySelectorAll('.section').forEach(section => {
-      section.style.opacity = '0';
-      section.style.transform = 'translateY(30px)';
-      section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-      observer.observe(section);
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+
+      deco1.style.transform = `translate(${x * 0.5}px, ${y * 0.5}px)`;
+      deco2.style.transform = `translate(${-x * 0.3}px, ${-y * 0.3}px)`;
     });
   }
 
