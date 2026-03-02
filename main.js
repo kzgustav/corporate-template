@@ -202,24 +202,49 @@
     document.getElementById('accessTitleEn').textContent = acc.titleEn;
     document.getElementById('accessTitleJa').textContent = acc.titleJa;
 
-    const container = document.getElementById('accessOffices');
-    container.setAttribute('data-stagger', '');
+    const mainContainer = document.getElementById('accessMain');
+    const branchContainer = document.getElementById('accessOffices');
+    branchContainer.setAttribute('data-stagger', '');
+
     acc.offices.forEach(office => {
-      const div = document.createElement('div');
-      div.className = `access__office${office.isMain ? ' is-main' : ''}`;
-      let html = `
-        <h3>${office.name}</h3>
-        <p class="access__office-address">${office.address}</p>
-      `;
-      if (office.mapUrl) {
-        html += `
-          <a href="${office.mapUrl}" target="_blank" rel="noopener" class="access__office-map">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span>Google Map</span>
+      if (office.isMain) {
+        // Main office - large card with big map
+        const div = document.createElement('div');
+        div.className = 'access__office-main';
+        div.setAttribute('data-anim', '');
+        let html = `<div class="access__office-info">
+          <h3>${office.name}</h3>
+          <p class="access__office-address">${office.address}</p>
+        </div>`;
+        if (office.mapEmbed) {
+          html += `<div class="access__map-embed">
+            <iframe src="${office.mapEmbed}" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>`;
+        }
+        div.innerHTML = html;
+        mainContainer.appendChild(div);
+      } else {
+        // Branch offices - compact cards with smaller maps
+        const div = document.createElement('div');
+        div.className = 'access__office';
+        let html = `<div class="access__office-info">
+          <h3>${office.name}</h3>
+          <p class="access__office-address">${office.address}</p>`;
+        if (office.mapUrl) {
+          html += `<a href="${office.mapUrl}" target="_blank" rel="noopener" class="access__office-maplink">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Google Mapで開く</span>
           </a>`;
+        }
+        html += `</div>`;
+        if (office.mapEmbed) {
+          html += `<div class="access__map-embed">
+            <iframe src="${office.mapEmbed}" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>`;
+        }
+        div.innerHTML = html;
+        branchContainer.appendChild(div);
       }
-      div.innerHTML = html;
-      container.appendChild(div);
     });
 
     const noteEl = document.getElementById('accessNote');
