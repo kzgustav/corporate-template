@@ -47,6 +47,18 @@
       if (theme[key]) root.style.setProperty(cssVar, theme[key]);
     });
     document.getElementById('siteTitle').textContent = config.site.title || '';
+
+    // Meta tags
+    if (config.meta) {
+      if (config.meta.description) {
+        document.getElementById('metaDesc').content = config.meta.description;
+        document.getElementById('ogDesc').content = config.meta.description;
+      }
+      if (config.meta.ogImage) {
+        document.getElementById('ogImage').content = config.meta.ogImage;
+      }
+    }
+    document.getElementById('ogTitle').content = config.site.title || '';
   }
 
   // ==========================================
@@ -54,7 +66,17 @@
   // ==========================================
   function renderHeader(cfg) {
     const { site, nav } = cfg;
-    document.querySelector('.header__logo-text').textContent = site.title;
+
+    // Logo: image or text
+    if (site.logoUrl) {
+      const logoMark = document.querySelector('.header__logo-mark');
+      const logoText = document.querySelector('.header__logo-text');
+      if (logoMark) logoMark.style.display = 'none';
+      logoText.innerHTML = `<img src="${site.logoUrl}" alt="${site.title}" style="height:36px;width:auto;">`;
+    } else {
+      document.querySelector('.header__logo-text').textContent = site.title;
+    }
+
     document.getElementById('phoneNumber').textContent = site.phone;
     document.getElementById('headerPhone').href = `tel:${site.phone.replace(/-/g, '')}`;
     document.getElementById('headerCta').href = site.contactUrl;
@@ -71,7 +93,6 @@
       navList.appendChild(li);
     });
 
-    // Footer logo
     document.getElementById('footerLogo').textContent = site.title;
   }
 
@@ -85,12 +106,26 @@
       document.getElementById('heroImage').src = hero.image;
     }
 
-    // Hero background image (parallax)
+    // Hero background: gradient / image / video
     const heroBg = document.querySelector('.hero__bg');
-    const bgImage = cfg.theme.heroBackground;
-    if (bgImage) {
+    const heroType = cfg.theme.heroType || 'gradient';
+
+    if (heroType === 'image' && cfg.theme.heroBackground) {
       heroBg.classList.add('has-image');
-      heroBg.style.backgroundImage = `url(${bgImage})`;
+      heroBg.style.backgroundImage = `url(${cfg.theme.heroBackground})`;
+    } else if (heroType === 'video' && cfg.theme.heroVideo) {
+      heroBg.classList.add('has-image');
+      if (cfg.theme.heroBackground) {
+        heroBg.style.backgroundImage = `url(${cfg.theme.heroBackground})`;
+      }
+      const video = document.createElement('video');
+      video.src = cfg.theme.heroVideo;
+      video.autoplay = true;
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;';
+      heroBg.appendChild(video);
     }
   }
 

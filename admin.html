@@ -16,1067 +16,840 @@
       --cms-border: #e5e7eb;
       --cms-text: #1a1a2e;
       --cms-text-light: #6b7280;
+      --cms-text-muted: #9ca3af;
       --cms-success: #10b981;
       --cms-danger: #ef4444;
+      --cms-info: #3b82f6;
       --cms-radius: 12px;
       --cms-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
       --cms-shadow-lg: 0 10px 40px rgba(0,0,0,0.08);
       --font: 'Noto Sans JP', sans-serif;
       --font-en: 'Outfit', sans-serif;
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font); background: var(--cms-bg); color: var(--cms-text); line-height: 1.6; }
 
-    body {
-      font-family: var(--font);
-      background: var(--cms-bg);
-      color: var(--cms-text);
-      line-height: 1.6;
-    }
+    /* === LAYOUT === */
+    .cms { display: flex; min-height: 100vh; }
 
-    /* Layout */
-    .cms {
-      display: flex;
-      min-height: 100vh;
-    }
-
-    /* Sidebar */
     .cms__sidebar {
-      width: 260px;
-      background: var(--cms-primary);
-      color: #fff;
-      padding: 24px 0;
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      overflow-y: auto;
-      z-index: 100;
+      width: 260px; background: var(--cms-primary); color: #fff;
+      padding: 24px 0; position: fixed; top: 0; left: 0; bottom: 0;
+      overflow-y: auto; z-index: 100;
     }
+    .cms__sidebar-logo { padding: 0 24px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 16px; }
+    .cms__sidebar-logo h1 { font-family: var(--font-en); font-size: 18px; font-weight: 700; }
+    .cms__sidebar-logo span { font-size: 11px; color: rgba(255,255,255,0.5); display: block; margin-top: 2px; }
 
-    .cms__sidebar-logo {
-      padding: 0 24px 24px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      margin-bottom: 16px;
-    }
-
-    .cms__sidebar-logo h1 {
-      font-family: var(--font-en);
-      font-size: 18px;
-      font-weight: 700;
-    }
-
-    .cms__sidebar-logo span {
-      font-size: 11px;
-      color: rgba(255,255,255,0.5);
-      display: block;
-      margin-top: 2px;
-    }
-
-    .cms__nav {
-      list-style: none;
-    }
-
+    .cms__nav { list-style: none; }
     .cms__nav-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 24px;
-      color: rgba(255,255,255,0.6);
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-      border-left: 3px solid transparent;
+      display: flex; align-items: center; gap: 12px; padding: 12px 24px;
+      color: rgba(255,255,255,0.6); font-size: 14px; font-weight: 500;
+      cursor: pointer; transition: all 0.2s; border-left: 3px solid transparent;
     }
+    .cms__nav-item:hover { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.04); }
+    .cms__nav-item.active { color: #fff; background: rgba(255,255,255,0.08); border-left-color: var(--cms-accent); }
+    .cms__nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .cms__nav-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 12px 24px; }
 
-    .cms__nav-item:hover {
-      color: rgba(255,255,255,0.9);
-      background: rgba(255,255,255,0.04);
-    }
+    .cms__main { flex: 1; margin-left: 260px; padding: 32px; max-width: 960px; }
+    .cms__page-header { margin-bottom: 32px; }
+    .cms__page-title { font-size: 24px; font-weight: 700; }
+    .cms__page-desc { font-size: 14px; color: var(--cms-text-light); margin-top: 4px; }
 
-    .cms__nav-item.active {
-      color: #fff;
-      background: rgba(255,255,255,0.08);
-      border-left-color: var(--cms-accent);
-    }
-
-    .cms__nav-item svg {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-    }
-
-    .cms__nav-divider {
-      height: 1px;
-      background: rgba(255,255,255,0.06);
-      margin: 12px 24px;
-    }
-
-    /* Main content */
-    .cms__main {
-      flex: 1;
-      margin-left: 260px;
-      padding: 32px;
-      max-width: 960px;
-    }
-
-    .cms__page-header {
-      margin-bottom: 32px;
-    }
-
-    .cms__page-title {
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--cms-text);
-    }
-
-    .cms__page-desc {
-      font-size: 14px;
-      color: var(--cms-text-light);
-      margin-top: 4px;
-    }
-
-    /* Cards */
-    .cms__card {
-      background: var(--cms-card);
-      border-radius: var(--cms-radius);
-      box-shadow: var(--cms-shadow);
-      padding: 28px;
-      margin-bottom: 20px;
-    }
-
+    /* === CARDS === */
+    .cms__card { background: var(--cms-card); border-radius: var(--cms-radius); box-shadow: var(--cms-shadow); padding: 28px; margin-bottom: 20px; }
     .cms__card-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--cms-text);
-      margin-bottom: 20px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--cms-border);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-size: 16px; font-weight: 700; margin-bottom: 20px; padding-bottom: 12px;
+      border-bottom: 1px solid var(--cms-border); display: flex; align-items: center; gap: 8px;
     }
+    .badge { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 100px; background: rgba(201,148,74,0.1); color: var(--cms-accent); }
 
-    .cms__card-title .badge {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 2px 8px;
-      border-radius: 100px;
-      background: rgba(201,148,74,0.1);
-      color: var(--cms-accent);
-    }
-
-    /* Form elements */
-    .cms__field {
-      margin-bottom: 20px;
-    }
-
-    .cms__field:last-child {
-      margin-bottom: 0;
-    }
-
-    .cms__label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--cms-text);
-      margin-bottom: 6px;
-    }
-
-    .cms__label-hint {
-      font-weight: 400;
-      color: var(--cms-text-light);
-      font-size: 12px;
-      margin-left: 8px;
-    }
+    /* === FORM === */
+    .cms__field { margin-bottom: 20px; }
+    .cms__field:last-child { margin-bottom: 0; }
+    .cms__label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .cms__label-hint { font-weight: 400; color: var(--cms-text-light); font-size: 12px; margin-left: 8px; }
 
     .cms__input {
-      width: 100%;
-      padding: 10px 14px;
-      border: 1px solid var(--cms-border);
-      border-radius: 8px;
-      font-family: var(--font);
-      font-size: 14px;
-      color: var(--cms-text);
-      background: #fff;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      outline: none;
+      width: 100%; padding: 10px 14px; border: 1px solid var(--cms-border); border-radius: 8px;
+      font-family: var(--font); font-size: 14px; color: var(--cms-text); background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s; outline: none;
     }
+    .cms__input:focus { border-color: var(--cms-accent); box-shadow: 0 0 0 3px rgba(201,148,74,0.12); }
+    textarea.cms__input { min-height: 100px; resize: vertical; line-height: 1.8; }
+    select.cms__input { cursor: pointer; }
+    .cms__input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
-    .cms__input:focus {
-      border-color: var(--cms-accent);
-      box-shadow: 0 0 0 3px rgba(201,148,74,0.12);
+    /* === DRAG & DROP IMAGE === */
+    .cms__dropzone {
+      border: 2px dashed var(--cms-border); border-radius: 12px; padding: 32px 20px;
+      text-align: center; cursor: pointer; transition: all 0.25s; position: relative;
+      background: var(--cms-bg); min-height: 120px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
     }
-
-    .cms__input--color {
-      padding: 4px;
-      width: 60px;
-      height: 40px;
-      border-radius: 8px;
-      cursor: pointer;
+    .cms__dropzone:hover, .cms__dropzone.dragover {
+      border-color: var(--cms-accent); background: rgba(201,148,74,0.04);
     }
+    .cms__dropzone.dragover { transform: scale(1.01); }
+    .cms__dropzone-icon { color: var(--cms-text-muted); }
+    .cms__dropzone-text { font-size: 13px; color: var(--cms-text-light); }
+    .cms__dropzone-text strong { color: var(--cms-accent); }
+    .cms__dropzone-hint { font-size: 11px; color: var(--cms-text-muted); }
+    .cms__dropzone input[type="file"] { display: none; }
 
-    .cms__color-group {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .cms__dropzone-preview {
+      position: relative; display: inline-block; margin-top: 12px; max-width: 100%;
     }
-
-    .cms__color-group .cms__input--text {
-      flex: 1;
-      font-family: var(--font-en);
-      font-size: 13px;
+    .cms__dropzone-preview img, .cms__dropzone-preview video {
+      max-width: 100%; max-height: 200px; border-radius: 8px; display: block;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
     }
-
-    textarea.cms__input {
-      min-height: 100px;
-      resize: vertical;
-      line-height: 1.8;
+    .cms__dropzone-remove {
+      position: absolute; top: -8px; right: -8px; width: 24px; height: 24px;
+      background: var(--cms-danger); color: #fff; border: none; border-radius: 50%;
+      cursor: pointer; font-size: 14px; line-height: 1; display: flex;
+      align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(239,68,68,0.3);
     }
-
-    .cms__input-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+    .cms__url-fallback { margin-top: 10px; }
+    .cms__url-fallback summary {
+      font-size: 12px; color: var(--cms-text-muted); cursor: pointer;
+      user-select: none; padding: 4px 0;
     }
+    .cms__url-fallback .cms__input { margin-top: 6px; font-size: 12px; }
 
-    /* Repeater (for lists like news, services, offices) */
+    /* === COLOR PALETTE === */
+    .cms__palette { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .cms__palette-swatch {
+      width: 36px; height: 36px; border-radius: 10px; cursor: pointer;
+      border: 3px solid transparent; transition: all 0.2s; position: relative;
+    }
+    .cms__palette-swatch:hover { transform: scale(1.15); }
+    .cms__palette-swatch.active {
+      border-color: var(--cms-text); box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--cms-text);
+    }
+    .cms__palette-swatch.active::after {
+      content: '✓'; position: absolute; inset: 0; display: flex; align-items: center;
+      justify-content: center; color: #fff; font-size: 14px; font-weight: 700;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+    .cms__color-custom {
+      display: flex; align-items: center; gap: 10px; margin-top: 8px;
+    }
+    .cms__color-custom input[type="color"] {
+      width: 40px; height: 36px; border: 1px solid var(--cms-border); border-radius: 8px;
+      cursor: pointer; padding: 2px;
+    }
+    .cms__color-custom input[type="text"] {
+      width: 100px; font-family: var(--font-en); font-size: 13px;
+    }
+    .cms__color-label { font-size: 12px; color: var(--cms-text-light); }
+
+    /* === REPEATER === */
     .cms__repeater-item {
-      background: var(--cms-bg);
-      border: 1px solid var(--cms-border);
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 12px;
-      position: relative;
+      background: var(--cms-bg); border: 1px solid var(--cms-border); border-radius: 10px;
+      padding: 20px; margin-bottom: 12px;
     }
-
-    .cms__repeater-item .cms__repeater-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .cms__repeater-item .cms__repeater-label {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--cms-text);
-    }
-
+    .cms__repeater-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .cms__repeater-label { font-size: 13px; font-weight: 700; }
     .cms__repeater-remove {
-      background: none;
-      border: none;
-      color: var(--cms-danger);
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 6px;
-      transition: background 0.2s;
+      background: none; border: none; color: var(--cms-danger); font-size: 12px;
+      font-weight: 600; cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: background 0.2s;
     }
-
-    .cms__repeater-remove:hover {
-      background: rgba(239,68,68,0.08);
-    }
+    .cms__repeater-remove:hover { background: rgba(239,68,68,0.08); }
 
     .cms__add-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 10px 20px;
-      border: 2px dashed var(--cms-border);
-      border-radius: 10px;
-      background: none;
-      color: var(--cms-text-light);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      width: 100%;
-      justify-content: center;
+      display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px;
+      border: 2px dashed var(--cms-border); border-radius: 10px; background: none;
+      color: var(--cms-text-light); font-size: 13px; font-weight: 600; cursor: pointer;
+      transition: all 0.2s; width: 100%; justify-content: center;
     }
+    .cms__add-btn:hover { border-color: var(--cms-accent); color: var(--cms-accent); background: rgba(201,148,74,0.04); }
 
-    .cms__add-btn:hover {
-      border-color: var(--cms-accent);
-      color: var(--cms-accent);
-      background: rgba(201,148,74,0.04);
-    }
-
-    /* Action buttons */
+    /* === ACTIONS === */
     .cms__actions {
-      position: fixed;
-      bottom: 0;
-      left: 260px;
-      right: 0;
-      background: #fff;
-      border-top: 1px solid var(--cms-border);
-      padding: 16px 32px;
-      display: flex;
-      gap: 12px;
-      justify-content: flex-end;
-      z-index: 50;
+      position: fixed; bottom: 0; left: 260px; right: 0; background: #fff;
+      border-top: 1px solid var(--cms-border); padding: 16px 32px;
+      display: flex; gap: 12px; justify-content: flex-end; z-index: 50;
       box-shadow: 0 -4px 20px rgba(0,0,0,0.04);
     }
-
     .cms__btn {
-      padding: 10px 28px;
-      border: none;
-      border-radius: 100px;
-      font-family: var(--font);
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      padding: 10px 28px; border: none; border-radius: 100px; font-family: var(--font);
+      font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
     }
+    .cms__btn--primary { background: var(--cms-accent); color: #fff; box-shadow: 0 2px 12px rgba(201,148,74,0.3); }
+    .cms__btn--primary:hover { background: var(--cms-accent-light); transform: translateY(-1px); }
+    .cms__btn--secondary { background: var(--cms-primary); color: #fff; }
+    .cms__btn--secondary:hover { opacity: 0.9; }
+    .cms__btn--outline { background: #fff; color: var(--cms-text); border: 1px solid var(--cms-border); }
+    .cms__btn--outline:hover { border-color: var(--cms-text-light); }
 
-    .cms__btn--primary {
-      background: var(--cms-accent);
-      color: #fff;
-      box-shadow: 0 2px 12px rgba(201,148,74,0.3);
-    }
-
-    .cms__btn--primary:hover {
-      background: var(--cms-accent-light);
-      transform: translateY(-1px);
-    }
-
-    .cms__btn--secondary {
-      background: var(--cms-primary);
-      color: #fff;
-    }
-
-    .cms__btn--secondary:hover {
-      opacity: 0.9;
-    }
-
-    .cms__btn--outline {
-      background: #fff;
-      color: var(--cms-text);
-      border: 1px solid var(--cms-border);
-    }
-
-    .cms__btn--outline:hover {
-      border-color: var(--cms-text-light);
-    }
-
-    /* Toast */
     .cms__toast {
-      position: fixed;
-      top: 24px;
-      right: 24px;
-      padding: 14px 24px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      z-index: 9999;
-      transform: translateX(120%);
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: fixed; top: 24px; right: 24px; padding: 14px 24px; border-radius: 10px;
+      font-size: 14px; font-weight: 600; z-index: 9999;
+      transform: translateX(120%); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
       box-shadow: var(--cms-shadow-lg);
     }
+    .cms__toast.is-visible { transform: translateX(0); }
+    .cms__toast--success { background: var(--cms-success); color: #fff; }
+    .cms__toast--error { background: var(--cms-danger); color: #fff; }
 
-    .cms__toast.is-visible {
-      transform: translateX(0);
+    .cms__note {
+      background: rgba(201,148,74,0.08); border: 1px solid rgba(201,148,74,0.2);
+      border-radius: 10px; padding: 14px 20px; font-size: 13px; color: #8b6914;
+      margin-bottom: 24px; display: flex; align-items: flex-start; gap: 8px; line-height: 1.7;
+    }
+    .cms__note-blue {
+      background: rgba(59,130,246,0.06); border-color: rgba(59,130,246,0.2); color: #1e40af;
     }
 
-    .cms__toast--success {
-      background: var(--cms-success);
-      color: #fff;
-    }
-
-    .cms__toast--error {
-      background: var(--cms-danger);
-      color: #fff;
-    }
-
-    /* Page sections (hidden by default) */
-    .cms__page {
-      display: none;
-      padding-bottom: 80px;
-    }
-
-    .cms__page.active {
-      display: block;
-    }
-
-    /* Preview tag */
-    .cms__preview-note {
-      background: rgba(201,148,74,0.08);
-      border: 1px solid rgba(201,148,74,0.2);
-      border-radius: 10px;
-      padding: 14px 20px;
-      font-size: 13px;
-      color: var(--cms-accent);
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    /* Responsive */
     @media (max-width: 768px) {
-      .cms__sidebar {
-        width: 100%;
-        position: relative;
-        padding: 16px 0;
-      }
-      .cms__main {
-        margin-left: 0;
-        padding: 20px;
-      }
-      .cms__actions {
-        left: 0;
-      }
-      .cms__input-row {
-        grid-template-columns: 1fr;
-      }
+      .cms__sidebar { width: 100%; position: relative; padding: 16px 0; }
+      .cms__main { margin-left: 0; padding: 20px; }
+      .cms__actions { left: 0; }
+      .cms__input-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-
-  <div class="cms">
-    <!-- Sidebar -->
-    <aside class="cms__sidebar">
-      <div class="cms__sidebar-logo">
-        <h1>CMS Admin</h1>
-        <span>コーポレートテンプレート管理</span>
-      </div>
-      <ul class="cms__nav" id="cmsNav">
-        <li class="cms__nav-item active" data-page="site">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
-          サイト基本設定
-        </li>
-        <li class="cms__nav-item" data-page="theme">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-          テーマ・配色
-        </li>
-        <div class="cms__nav-divider"></div>
-        <li class="cms__nav-item" data-page="hero">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          ヒーロー
-        </li>
-        <li class="cms__nav-item" data-page="news">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
-          お知らせ (NEWS)
-        </li>
-        <li class="cms__nav-item" data-page="message">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-          メッセージ
-        </li>
-        <li class="cms__nav-item" data-page="service">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
-          サービス
-        </li>
-        <li class="cms__nav-item" data-page="photo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          職場風景 (PHOTO)
-        </li>
-        <li class="cms__nav-item" data-page="access">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          アクセス
-        </li>
-        <div class="cms__nav-divider"></div>
-        <li class="cms__nav-item" data-page="export">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-          エクスポート
-        </li>
-      </ul>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="cms__main" id="cmsMain"></main>
-
-    <!-- Action bar -->
-    <div class="cms__actions">
-      <button class="cms__btn cms__btn--outline" onclick="resetData()">リセット</button>
-      <button class="cms__btn cms__btn--secondary" onclick="previewSite()">プレビュー</button>
-      <button class="cms__btn cms__btn--primary" onclick="saveData()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>
-        保存 &amp; ダウンロード
-      </button>
+<div class="cms">
+  <aside class="cms__sidebar">
+    <div class="cms__sidebar-logo">
+      <h1>CMS Admin</h1>
+      <span>コーポレートテンプレート管理</span>
     </div>
+    <ul class="cms__nav" id="cmsNav">
+      <li class="cms__nav-item active" data-page="site">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+        サイト基本設定
+      </li>
+      <li class="cms__nav-item" data-page="theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        テーマ・配色
+      </li>
+      <div class="cms__nav-divider"></div>
+      <li class="cms__nav-item" data-page="hero">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        ヒーロー
+      </li>
+      <li class="cms__nav-item" data-page="news">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+        お知らせ
+      </li>
+      <li class="cms__nav-item" data-page="message">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        メッセージ
+      </li>
+      <li class="cms__nav-item" data-page="service">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        サービス
+      </li>
+      <li class="cms__nav-item" data-page="photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        職場風景
+      </li>
+      <li class="cms__nav-item" data-page="access">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        アクセス
+      </li>
+      <div class="cms__nav-divider"></div>
+      <li class="cms__nav-item" data-page="meta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+        SEO / メタ情報
+      </li>
+      <li class="cms__nav-item" data-page="export">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        エクスポート
+      </li>
+    </ul>
+  </aside>
+
+  <main class="cms__main" id="cmsMain"></main>
+
+  <div class="cms__actions">
+    <button class="cms__btn cms__btn--outline" onclick="resetData()">リセット</button>
+    <button class="cms__btn cms__btn--secondary" onclick="previewSite()">プレビュー</button>
+    <button class="cms__btn cms__btn--primary" onclick="saveData()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>
+      保存 &amp; ダウンロード
+    </button>
   </div>
+</div>
+<div class="cms__toast" id="toast"></div>
 
-  <!-- Toast -->
-  <div class="cms__toast" id="toast"></div>
+<script>
+// ==========================================
+// STATE
+// ==========================================
+let config = {};
+let content = {};
+let imageStore = {}; // key: fieldPath, value: { dataUrl, filename }
 
-  <script>
-    // ==========================================
-    // State
-    // ==========================================
-    let config = {};
-    let content = {};
+// ==========================================
+// COLOR PALETTES
+// ==========================================
+const PALETTES = {
+  primary: [
+    '#0f1d3d','#1a1a2e','#16213e','#0a1628','#1b2838',
+    '#2d3436','#0c2461','#192a56','#273c75','#40407a',
+    '#2f3640','#353b48','#1e272e','#485460','#0a3d62',
+    '#3c6382','#60a3bc','#6a89cc','#4a69bd','#1e3799'
+  ],
+  accent: [
+    '#c9944a','#e4b87a','#d4a76a','#b8860b','#daa520',
+    '#cd853f','#e67e22','#f39c12','#d35400','#e74c3c',
+    '#c0392b','#27ae60','#2ecc71','#3498db','#2980b9',
+    '#8e44ad','#9b59b6','#1abc9c','#16a085','#f1c40f'
+  ]
+};
 
-    // ==========================================
-    // Init
-    // ==========================================
-    async function init() {
-      try {
-        config = await fetch('config.json').then(r => r.json());
-        content = await fetch('content.json').then(r => r.json());
-      } catch (e) {
-        // Defaults if files not found
-        config = getDefaultConfig();
-        content = getDefaultContent();
-      }
+// ==========================================
+// INIT
+// ==========================================
+async function init() {
+  try {
+    config = await fetch('config.json').then(r => r.json());
+    content = await fetch('content.json').then(r => r.json());
+  } catch (e) {
+    config = defaultConfig();
+    content = defaultContent();
+  }
+  // Ensure meta fields exist
+  if (!config.meta) config.meta = { description: '', ogImage: '' };
+  if (!config.site.logoUrl) config.site.logoUrl = '';
+  if (!config.theme.heroBackground) config.theme.heroBackground = '';
+  if (!config.theme.heroVideo) config.theme.heroVideo = '';
+  if (!config.theme.heroType) config.theme.heroType = 'gradient';
+
+  renderCurrentPage();
+  initNav();
+}
+
+function defaultConfig() {
+  return {
+    site: { title: '', tagline: '', phone: '', contactUrl: '', recruitUrl: '', copyright: '', logoUrl: '' },
+    theme: { primaryColor: '#0f1d3d', primaryLight: '#1e3a6e', accentColor: '#c9944a', textColor: '#1a1a2e', textLight: '#6b7280', bgColor: '#ffffff', bgLight: '#f5f5f5', bgDark: '#0f1d3d', heroBackground: '', heroVideo: '', heroType: 'gradient' },
+    meta: { description: '', ogImage: '' },
+    nav: [], footer: { links: [] }
+  };
+}
+
+function defaultContent() {
+  return {
+    hero: { image: '' },
+    news: { titleEn: 'NEWS', titleJa: '最新情報', listUrl: '/news/', items: [] },
+    message: { titleEn: 'MESSAGE', titleJa: 'メッセージ', image: '', heading: '', body: '', values: [], buttons: [] },
+    service: { titleEn: 'SERVICE', titleJa: 'サービス', items: [] },
+    photo: { titleEn: 'PHOTO', titleJa: '職場風景', images: [] },
+    access: { titleEn: 'ACCESS', titleJa: 'アクセス', offices: [], note: '' }
+  };
+}
+
+// ==========================================
+// NAV
+// ==========================================
+function initNav() {
+  document.querySelectorAll('.cms__nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.cms__nav-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
       renderCurrentPage();
-      initNav();
-    }
+    });
+  });
+}
 
-    function getDefaultConfig() {
-      return {
-        site: { title: '', tagline: '', phone: '', contactUrl: '', recruitUrl: '', copyright: '' },
-        theme: { primaryColor: '#0f1d3d', primaryLight: '#1e3a6e', accentColor: '#c9944a', textColor: '#1a1a2e', bgColor: '#ffffff' },
-        nav: [],
-        footer: { links: [] }
-      };
-    }
+function getCurrentPage() {
+  return document.querySelector('.cms__nav-item.active')?.dataset.page || 'site';
+}
 
-    function getDefaultContent() {
-      return {
-        hero: { image: '' },
-        news: { titleEn: 'NEWS', titleJa: '最新情報', listUrl: '/news/', items: [] },
-        message: { titleEn: 'MESSAGE', titleJa: 'メッセージ', image: '', heading: '', body: '', values: [], buttons: [] },
-        service: { titleEn: 'SERVICE', titleJa: 'サービス', items: [] },
-        photo: { titleEn: 'PHOTO', titleJa: '職場風景', images: [] },
-        access: { titleEn: 'ACCESS', titleJa: 'アクセス', offices: [], note: '' }
-      };
-    }
+function renderCurrentPage() {
+  const page = getCurrentPage();
+  const main = document.getElementById('cmsMain');
+  const R = { site: pgSite, theme: pgTheme, hero: pgHero, news: pgNews, message: pgMessage, service: pgService, photo: pgPhoto, access: pgAccess, meta: pgMeta, export: pgExport };
+  main.innerHTML = '';
+  if (R[page]) R[page](main);
+  // Re-init dropzones
+  setTimeout(initDropzones, 50);
+}
 
-    // ==========================================
-    // Navigation
-    // ==========================================
-    function initNav() {
-      document.querySelectorAll('.cms__nav-item').forEach(item => {
-        item.addEventListener('click', () => {
-          document.querySelectorAll('.cms__nav-item').forEach(i => i.classList.remove('active'));
-          item.classList.add('active');
-          renderCurrentPage();
-        });
-      });
-    }
+// ==========================================
+// DROPZONE SYSTEM
+// ==========================================
+function dropzoneHTML(fieldPath, currentValue, opts = {}) {
+  const accept = opts.accept || 'image/*';
+  const label = opts.label || '画像をドラッグ＆ドロップ';
+  const hint = opts.hint || 'PNG, JPG, WebP';
+  const isVideo = accept.includes('video');
+  const stored = imageStore[fieldPath];
+  const previewSrc = stored ? stored.dataUrl : currentValue;
+  const hasPreview = previewSrc && previewSrc.length > 0;
 
-    function getCurrentPage() {
-      const active = document.querySelector('.cms__nav-item.active');
-      return active ? active.dataset.page : 'site';
-    }
+  return `
+    <div class="cms__dropzone" data-field="${esc(fieldPath)}" data-accept="${accept}">
+      <input type="file" accept="${accept}">
+      ${hasPreview ? `
+        <div class="cms__dropzone-preview">
+          ${isVideo && previewSrc ? `<video src="${esc(previewSrc)}" muted autoplay loop playsinline style="max-height:200px;border-radius:8px;"></video>`
+            : `<img src="${esc(previewSrc)}" alt="preview">`}
+          <button class="cms__dropzone-remove" onclick="clearDropzone('${esc(fieldPath)}')">×</button>
+        </div>
+      ` : `
+        <div class="cms__dropzone-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <p class="cms__dropzone-text"><strong>クリック</strong>または${label}</p>
+        <p class="cms__dropzone-hint">${hint}</p>
+      `}
+    </div>
+    <details class="cms__url-fallback">
+      <summary>URLを直接入力する</summary>
+      <input class="cms__input" type="text" value="${esc(currentValue || '')}"
+        onchange="setNestedValue('${esc(fieldPath)}', this.value); renderCurrentPage();"
+        placeholder="https://example.com/image.jpg">
+    </details>`;
+}
 
-    function renderCurrentPage() {
-      const page = getCurrentPage();
-      const main = document.getElementById('cmsMain');
-      const renderers = {
-        site: renderSitePage,
-        theme: renderThemePage,
-        hero: renderHeroPage,
-        news: renderNewsPage,
-        message: renderMessagePage,
-        service: renderServicePage,
-        photo: renderPhotoPage,
-        access: renderAccessPage,
-        export: renderExportPage
-      };
-      main.innerHTML = '';
-      if (renderers[page]) renderers[page](main);
-    }
+function initDropzones() {
+  document.querySelectorAll('.cms__dropzone').forEach(zone => {
+    const input = zone.querySelector('input[type="file"]');
+    const field = zone.dataset.field;
 
-    // ==========================================
-    // Page Renderers
-    // ==========================================
+    zone.addEventListener('click', (e) => {
+      if (e.target.closest('.cms__dropzone-remove')) return;
+      input.click();
+    });
 
-    function renderSitePage(el) {
-      el.innerHTML = `
-        <div class="cms__page-header">
-          <h2 class="cms__page-title">サイト基本設定</h2>
-          <p class="cms__page-desc">サイト名、連絡先、ナビゲーションの設定</p>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">基本情報</div>
-          <div class="cms__field">
-            <label class="cms__label">サイト名</label>
-            <input class="cms__input" type="text" value="${esc(config.site.title)}" onchange="config.site.title=this.value">
-          </div>
-          <div class="cms__field">
-            <label class="cms__label">キャッチコピー</label>
-            <input class="cms__input" type="text" value="${esc(config.site.tagline)}" onchange="config.site.tagline=this.value">
-          </div>
-          <div class="cms__input-row">
-            <div class="cms__field">
-              <label class="cms__label">電話番号</label>
-              <input class="cms__input" type="text" value="${esc(config.site.phone)}" onchange="config.site.phone=this.value">
-            </div>
-            <div class="cms__field">
-              <label class="cms__label">お問い合わせURL</label>
-              <input class="cms__input" type="text" value="${esc(config.site.contactUrl)}" onchange="config.site.contactUrl=this.value">
-            </div>
-          </div>
-          <div class="cms__input-row">
-            <div class="cms__field">
-              <label class="cms__label">採用情報URL</label>
-              <input class="cms__input" type="text" value="${esc(config.site.recruitUrl)}" onchange="config.site.recruitUrl=this.value">
-            </div>
-            <div class="cms__field">
-              <label class="cms__label">コピーライト</label>
-              <input class="cms__input" type="text" value="${esc(config.site.copyright)}" onchange="config.site.copyright=this.value">
-            </div>
-          </div>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">ナビゲーション</div>
-          <div id="navRepeater">${config.nav.map((n, i) => navItemHTML(n, i)).join('')}</div>
-          <button class="cms__add-btn" onclick="addNavItem()">＋ ナビ項目を追加</button>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">フッターリンク</div>
-          <div id="footerRepeater">${config.footer.links.map((l, i) => footerLinkHTML(l, i)).join('')}</div>
-          <button class="cms__add-btn" onclick="addFooterLink()">＋ リンクを追加</button>
-        </div>
-      `;
-    }
+    zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('dragover'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+    zone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      zone.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if (file) handleFile(file, field);
+    });
 
-    function renderThemePage(el) {
-      const t = config.theme;
-      el.innerHTML = `
-        <div class="cms__page-header">
-          <h2 class="cms__page-title">テーマ・配色</h2>
-          <p class="cms__page-desc">カラーテーマとフォントの設定</p>
-        </div>
-        <div class="cms__preview-note">
-          💡 色を変更すると、サイト全体のテーマカラーが一括で変わります
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">メインカラー</div>
-          ${colorField('プライマリーカラー', 'primaryColor', t.primaryColor)}
-          ${colorField('プライマリー（ライト）', 'primaryLight', t.primaryLight)}
-          ${colorField('アクセントカラー', 'accentColor', t.accentColor)}
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">ヒーロー背景画像 <span class="badge">パララックス対応</span></div>
-          <div class="cms__preview-note">
-            💡 画像URLを設定するとヒーローにパララックス背景が表示されます。空欄ならグラデーション背景になります。
-          </div>
-          <div class="cms__field">
-            <label class="cms__label">背景画像URL</label>
-            <input class="cms__input" type="text" value="${esc(t.heroBackground || '')}" onchange="config.theme.heroBackground=this.value" placeholder="https://example.com/hero-bg.jpg">
-          </div>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">テキスト・背景</div>
-          ${colorField('テキストカラー', 'textColor', t.textColor)}
-          ${colorField('テキスト（サブ）', 'textLight', t.textLight || '#6b7280')}
-          ${colorField('背景色', 'bgColor', t.bgColor)}
-          ${colorField('背景色（セクション）', 'bgLight', t.bgLight || '#f5f5f5')}
-          ${colorField('ダーク背景', 'bgDark', t.bgDark || '#0f1d3d')}
-        </div>
-      `;
-    }
+    input.addEventListener('change', () => {
+      if (input.files[0]) handleFile(input.files[0], field);
+    });
+  });
+}
 
-    function renderHeroPage(el) {
-      el.innerHTML = `
-        <div class="cms__page-header">
-          <h2 class="cms__page-title">ヒーローセクション</h2>
-          <p class="cms__page-desc">メインビジュアルの画像設定</p>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">ヒーロー画像</div>
-          <div class="cms__field">
-            <label class="cms__label">画像URL</label>
-            <input class="cms__input" type="text" value="${esc(content.hero.image)}" onchange="content.hero.image=this.value">
-          </div>
-        </div>
-      `;
-    }
+function handleFile(file, fieldPath) {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const dataUrl = e.target.result;
+    imageStore[fieldPath] = { dataUrl, filename: file.name };
+    setNestedValue(fieldPath, dataUrl);
+    renderCurrentPage();
+    showToast(`${file.name} を設定しました`, 'success');
+  };
+  reader.readAsDataURL(file);
+}
 
-    function renderNewsPage(el) {
-      const n = content.news;
-      el.innerHTML = `
-        <div class="cms__page-header">
-          <h2 class="cms__page-title">お知らせ (NEWS)</h2>
-          <p class="cms__page-desc">最新情報セクションの管理</p>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">セクション設定</div>
-          <div class="cms__input-row">
-            <div class="cms__field">
-              <label class="cms__label">英語タイトル</label>
-              <input class="cms__input" type="text" value="${esc(n.titleEn)}" onchange="content.news.titleEn=this.value">
-            </div>
-            <div class="cms__field">
-              <label class="cms__label">日本語タイトル</label>
-              <input class="cms__input" type="text" value="${esc(n.titleJa)}" onchange="content.news.titleJa=this.value">
-            </div>
-          </div>
-          <div class="cms__field">
-            <label class="cms__label">一覧ページURL</label>
-            <input class="cms__input" type="text" value="${esc(n.listUrl)}" onchange="content.news.listUrl=this.value">
-          </div>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">お知らせ一覧</div>
-          <div id="newsRepeater">${n.items.map((item, i) => newsItemHTML(item, i)).join('')}</div>
-          <button class="cms__add-btn" onclick="addNewsItem()">＋ お知らせを追加</button>
-        </div>
-      `;
-    }
+function clearDropzone(fieldPath) {
+  delete imageStore[fieldPath];
+  setNestedValue(fieldPath, '');
+  renderCurrentPage();
+}
 
-    function renderMessagePage(el) {
-      const m = content.message;
-      el.innerHTML = `
-        <div class="cms__page-header">
-          <h2 class="cms__page-title">メッセージ</h2>
-          <p class="cms__page-desc">代表メッセージ・Vision・Missionの編集</p>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">セクション設定</div>
-          <div class="cms__input-row">
-            <div class="cms__field">
-              <label class="cms__label">英語タイトル</label>
-              <input class="cms__input" type="text" value="${esc(m.titleEn)}" onchange="content.message.titleEn=this.value">
-            </div>
-            <div class="cms__field">
-              <label class="cms__label">日本語タイトル</label>
-              <input class="cms__input" type="text" value="${esc(m.titleJa)}" onchange="content.message.titleJa=this.value">
-            </div>
-          </div>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">メッセージ本文</div>
-          <div class="cms__field">
-            <label class="cms__label">画像URL</label>
-            <input class="cms__input" type="text" value="${esc(m.image)}" onchange="content.message.image=this.value">
-          </div>
-          <div class="cms__field">
-            <label class="cms__label">見出し</label>
-            <input class="cms__input" type="text" value="${esc(m.heading)}" onchange="content.message.heading=this.value">
-          </div>
-          <div class="cms__field">
-            <label class="cms__label">本文 <span class="cms__label-hint">改行で段落分け</span></label>
-            <textarea class="cms__input" onchange="content.message.body=this.value">${esc(m.body)}</textarea>
-          </div>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">Vision / Mission</div>
-          <div id="valuesRepeater">${m.values.map((v, i) => valueItemHTML(v, i)).join('')}</div>
-          <button class="cms__add-btn" onclick="addValueItem()">＋ 項目を追加</button>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">ボタン</div>
-          <div id="msgBtnRepeater">${m.buttons.map((b, i) => msgBtnHTML(b, i)).join('')}</div>
-          <button class="cms__add-btn" onclick="addMsgBtn()">＋ ボタンを追加</button>
-        </div>
-      `;
-    }
+function setNestedValue(path, value) {
+  const parts = path.split('.');
+  const root = parts[0] === 'config' ? config : content;
+  let obj = root;
+  for (let i = 1; i < parts.length - 1; i++) {
+    const key = isNaN(parts[i]) ? parts[i] : parseInt(parts[i]);
+    obj = obj[key];
+  }
+  const lastKey = isNaN(parts[parts.length - 1]) ? parts[parts.length - 1] : parseInt(parts[parts.length - 1]);
+  obj[lastKey] = value;
+}
 
-    function renderServicePage(el) {
-      const s = content.service;
-      el.innerHTML = `
-        <div class="cms__page-header">
-          <h2 class="cms__page-title">サービス</h2>
-          <p class="cms__page-desc">サービスカードの管理</p>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">セクション設定</div>
-          <div class="cms__input-row">
-            <div class="cms__field">
-              <label class="cms__label">英語タイトル</label>
-              <input class="cms__input" type="text" value="${esc(s.titleEn)}" onchange="content.service.titleEn=this.value">
-            </div>
-            <div class="cms__field">
-              <label class="cms__label">日本語タイトル</label>
-              <input class="cms__input" type="text" value="${esc(s.titleJa)}" onchange="content.service.titleJa=this.value">
-            </div>
-          </div>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">サービス一覧</div>
-          <div id="serviceRepeater">${s.items.map((item, i) => serviceItemHTML(item, i)).join('')}</div>
-          <button class="cms__add-btn" onclick="addServiceItem()">＋ サービスを追加</button>
-        </div>
-      `;
-    }
+// ==========================================
+// COLOR PALETTE COMPONENT
+// ==========================================
+function paletteHTML(configKey, currentValue, paletteType) {
+  const colors = PALETTES[paletteType] || PALETTES.primary;
+  return `
+    <div class="cms__palette" data-key="${configKey}">
+      ${colors.map(c => `
+        <div class="cms__palette-swatch ${c === currentValue ? 'active' : ''}"
+          style="background:${c}" data-color="${c}"
+          onclick="setPaletteColor('${configKey}', '${c}', this)"></div>
+      `).join('')}
+    </div>
+    <div class="cms__color-custom">
+      <input type="color" value="${currentValue}" onchange="setPaletteColorCustom('${configKey}', this.value, this)">
+      <input class="cms__input" type="text" value="${currentValue}" style="width:100px"
+        onchange="setPaletteColorCustom('${configKey}', this.value, this)">
+      <span class="cms__color-label">カスタム</span>
+    </div>`;
+}
 
-    function renderPhotoPage(el) {
-      const p = content.photo;
-      el.innerHTML = `
-        <div class="cms__page-header">
-          <h2 class="cms__page-title">職場風景 (PHOTO)</h2>
-          <p class="cms__page-desc">ギャラリー画像の管理</p>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">セクション設定</div>
-          <div class="cms__input-row">
-            <div class="cms__field">
-              <label class="cms__label">英語タイトル</label>
-              <input class="cms__input" type="text" value="${esc(p.titleEn)}" onchange="content.photo.titleEn=this.value">
-            </div>
-            <div class="cms__field">
-              <label class="cms__label">日本語タイトル</label>
-              <input class="cms__input" type="text" value="${esc(p.titleJa)}" onchange="content.photo.titleJa=this.value">
-            </div>
-          </div>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">写真一覧</div>
-          <div id="photoRepeater">${p.images.map((img, i) => photoItemHTML(img, i)).join('')}</div>
-          <button class="cms__add-btn" onclick="addPhotoItem()">＋ 写真を追加</button>
-        </div>
-      `;
-    }
+function setPaletteColor(key, color, el) {
+  config.theme[key] = color;
+  el.closest('.cms__card').querySelectorAll('.cms__palette-swatch').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  const custom = el.closest('.cms__card').querySelector('.cms__color-custom');
+  custom.querySelector('input[type="color"]').value = color;
+  custom.querySelector('input[type="text"]').value = color;
+}
 
-    function renderAccessPage(el) {
-      const a = content.access;
-      el.innerHTML = `
-        <div class="cms__page-header">
-          <h2 class="cms__page-title">アクセス</h2>
-          <p class="cms__page-desc">オフィス情報とマップの管理</p>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">セクション設定</div>
-          <div class="cms__input-row">
-            <div class="cms__field">
-              <label class="cms__label">英語タイトル</label>
-              <input class="cms__input" type="text" value="${esc(a.titleEn)}" onchange="content.access.titleEn=this.value">
-            </div>
-            <div class="cms__field">
-              <label class="cms__label">日本語タイトル</label>
-              <input class="cms__input" type="text" value="${esc(a.titleJa)}" onchange="content.access.titleJa=this.value">
-            </div>
-          </div>
-          <div class="cms__field">
-            <label class="cms__label">注意書き</label>
-            <textarea class="cms__input" onchange="content.access.note=this.value">${esc(a.note)}</textarea>
-          </div>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">オフィス一覧</div>
-          <div id="accessRepeater">${a.offices.map((o, i) => officeItemHTML(o, i)).join('')}</div>
-          <button class="cms__add-btn" onclick="addOfficeItem()">＋ オフィスを追加</button>
-        </div>
-      `;
-    }
+function setPaletteColorCustom(key, color, el) {
+  config.theme[key] = color;
+  const card = el.closest('.cms__card');
+  card.querySelectorAll('.cms__palette-swatch').forEach(s => {
+    s.classList.toggle('active', s.dataset.color === color);
+  });
+  const custom = card.querySelector('.cms__color-custom');
+  custom.querySelector('input[type="color"]').value = color;
+  custom.querySelector('input[type="text"]').value = color;
+}
 
-    function renderExportPage(el) {
-      el.innerHTML = `
-        <div class="cms__page-header">
-          <h2 class="cms__page-title">エクスポート</h2>
-          <p class="cms__page-desc">編集した設定をJSON形式でダウンロード</p>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">config.json <span class="badge">サイト設定</span></div>
-          <pre style="background:#f0f2f5;padding:16px;border-radius:8px;font-size:12px;overflow-x:auto;max-height:300px;font-family:'Outfit',monospace;">${esc(JSON.stringify(config, null, 2))}</pre>
-          <br>
-          <button class="cms__btn cms__btn--outline" onclick="downloadJSON('config.json', config)">config.json をダウンロード</button>
-        </div>
-        <div class="cms__card">
-          <div class="cms__card-title">content.json <span class="badge">コンテンツ</span></div>
-          <pre style="background:#f0f2f5;padding:16px;border-radius:8px;font-size:12px;overflow-x:auto;max-height:300px;font-family:'Outfit',monospace;">${esc(JSON.stringify(content, null, 2))}</pre>
-          <br>
-          <button class="cms__btn cms__btn--outline" onclick="downloadJSON('content.json', content)">content.json をダウンロード</button>
-        </div>
-      `;
-    }
+// ==========================================
+// PAGE RENDERERS
+// ==========================================
 
-    // ==========================================
-    // Repeater HTML generators
-    // ==========================================
-    function navItemHTML(item, i) {
-      return `<div class="cms__repeater-item">
-        <div class="cms__repeater-header">
-          <span class="cms__repeater-label">ナビ項目 ${i + 1}</span>
-          <button class="cms__repeater-remove" onclick="removeNavItem(${i})">削除</button>
-        </div>
+function pgSite(el) {
+  const s = config.site;
+  el.innerHTML = `
+    <div class="cms__page-header"><h2 class="cms__page-title">サイト基本設定</h2><p class="cms__page-desc">サイト名、連絡先、ロゴ、ナビゲーションの設定</p></div>
+    <div class="cms__card">
+      <div class="cms__card-title">ロゴ <span class="badge">ドラッグ＆ドロップ対応</span></div>
+      <div class="cms__field">
+        <label class="cms__label">ロゴ画像</label>
+        ${dropzoneHTML('config.site.logoUrl', s.logoUrl, { label: 'ロゴ画像をドロップ', hint: 'PNG推奨（透過背景）・SVGも可' })}
+      </div>
+    </div>
+    <div class="cms__card">
+      <div class="cms__card-title">基本情報</div>
+      <div class="cms__field"><label class="cms__label">サイト名</label><input class="cms__input" value="${esc(s.title)}" onchange="config.site.title=this.value"></div>
+      <div class="cms__field"><label class="cms__label">キャッチコピー</label><input class="cms__input" value="${esc(s.tagline)}" onchange="config.site.tagline=this.value"></div>
+      <div class="cms__input-row">
+        <div class="cms__field"><label class="cms__label">電話番号</label><input class="cms__input" value="${esc(s.phone)}" onchange="config.site.phone=this.value"></div>
+        <div class="cms__field"><label class="cms__label">お問い合わせURL</label><input class="cms__input" value="${esc(s.contactUrl)}" onchange="config.site.contactUrl=this.value"></div>
+      </div>
+      <div class="cms__input-row">
+        <div class="cms__field"><label class="cms__label">採用情報URL</label><input class="cms__input" value="${esc(s.recruitUrl)}" onchange="config.site.recruitUrl=this.value"></div>
+        <div class="cms__field"><label class="cms__label">コピーライト</label><input class="cms__input" value="${esc(s.copyright)}" onchange="config.site.copyright=this.value"></div>
+      </div>
+    </div>
+    <div class="cms__card">
+      <div class="cms__card-title">ナビゲーション</div>
+      <div id="navRepeater">${config.nav.map((n,i) => repeaterItem('ナビ', i, `
         <div class="cms__input-row">
-          <div class="cms__field"><label class="cms__label">ラベル</label><input class="cms__input" value="${esc(item.label)}" onchange="config.nav[${i}].label=this.value"></div>
-          <div class="cms__field"><label class="cms__label">リンク先</label><input class="cms__input" value="${esc(item.href)}" onchange="config.nav[${i}].href=this.value"></div>
-        </div>
-      </div>`;
-    }
-
-    function footerLinkHTML(item, i) {
-      return `<div class="cms__repeater-item">
-        <div class="cms__repeater-header">
-          <span class="cms__repeater-label">リンク ${i + 1}</span>
-          <button class="cms__repeater-remove" onclick="removeFooterLink(${i})">削除</button>
-        </div>
+          <div class="cms__field"><label class="cms__label">ラベル</label><input class="cms__input" value="${esc(n.label)}" onchange="config.nav[${i}].label=this.value"></div>
+          <div class="cms__field"><label class="cms__label">リンク先</label><input class="cms__input" value="${esc(n.href)}" onchange="config.nav[${i}].href=this.value"></div>
+        </div>`, `removeItem(config.nav,${i})`)).join('')}</div>
+      <button class="cms__add-btn" onclick="config.nav.push({label:'',href:'#'});renderCurrentPage()">＋ ナビ項目を追加</button>
+    </div>
+    <div class="cms__card">
+      <div class="cms__card-title">フッターリンク</div>
+      <div id="footerRepeater">${config.footer.links.map((l,i) => repeaterItem('リンク', i, `
         <div class="cms__input-row">
-          <div class="cms__field"><label class="cms__label">ラベル</label><input class="cms__input" value="${esc(item.label)}" onchange="config.footer.links[${i}].label=this.value"></div>
-          <div class="cms__field"><label class="cms__label">URL</label><input class="cms__input" value="${esc(item.href)}" onchange="config.footer.links[${i}].href=this.value"></div>
-        </div>
-      </div>`;
-    }
+          <div class="cms__field"><label class="cms__label">ラベル</label><input class="cms__input" value="${esc(l.label)}" onchange="config.footer.links[${i}].label=this.value"></div>
+          <div class="cms__field"><label class="cms__label">URL</label><input class="cms__input" value="${esc(l.href)}" onchange="config.footer.links[${i}].href=this.value"></div>
+        </div>`, `removeItem(config.footer.links,${i})`)).join('')}</div>
+      <button class="cms__add-btn" onclick="config.footer.links.push({label:'',href:''});renderCurrentPage()">＋ リンクを追加</button>
+    </div>`;
+}
 
-    function newsItemHTML(item, i) {
-      return `<div class="cms__repeater-item">
-        <div class="cms__repeater-header">
-          <span class="cms__repeater-label">お知らせ ${i + 1}</span>
-          <button class="cms__repeater-remove" onclick="removeNewsItem(${i})">削除</button>
-        </div>
+function pgTheme(el) {
+  const t = config.theme;
+  el.innerHTML = `
+    <div class="cms__page-header"><h2 class="cms__page-title">テーマ・配色</h2><p class="cms__page-desc">パレットから選ぶかカスタムカラーを設定</p></div>
+    <div class="cms__note">💡 パレットから選択するか、カスタムでHEXコードを入力してください。サイト全体に一括反映されます。</div>
+    <div class="cms__card">
+      <div class="cms__card-title">プライマリーカラー <span class="badge">メインカラー</span></div>
+      ${paletteHTML('primaryColor', t.primaryColor, 'primary')}
+    </div>
+    <div class="cms__card">
+      <div class="cms__card-title">アクセントカラー <span class="badge">ボタン・装飾</span></div>
+      ${paletteHTML('accentColor', t.accentColor, 'accent')}
+    </div>
+    <div class="cms__card">
+      <div class="cms__card-title">その他のカラー</div>
+      <div class="cms__field"><label class="cms__label">プライマリー（ライト）</label>
+        <div class="cms__color-custom"><input type="color" value="${t.primaryLight||'#1e3a6e'}" onchange="config.theme.primaryLight=this.value;this.nextElementSibling.value=this.value"><input class="cms__input" type="text" value="${t.primaryLight||'#1e3a6e'}" style="width:100px" onchange="config.theme.primaryLight=this.value;this.previousElementSibling.value=this.value"></div></div>
+      <div class="cms__field"><label class="cms__label">テキストカラー</label>
+        <div class="cms__color-custom"><input type="color" value="${t.textColor}" onchange="config.theme.textColor=this.value;this.nextElementSibling.value=this.value"><input class="cms__input" type="text" value="${t.textColor}" style="width:100px" onchange="config.theme.textColor=this.value;this.previousElementSibling.value=this.value"></div></div>
+      <div class="cms__field"><label class="cms__label">背景色</label>
+        <div class="cms__color-custom"><input type="color" value="${t.bgColor}" onchange="config.theme.bgColor=this.value;this.nextElementSibling.value=this.value"><input class="cms__input" type="text" value="${t.bgColor}" style="width:100px" onchange="config.theme.bgColor=this.value;this.previousElementSibling.value=this.value"></div></div>
+    </div>`;
+}
+
+function pgHero(el) {
+  const t = config.theme;
+  el.innerHTML = `
+    <div class="cms__page-header"><h2 class="cms__page-title">ヒーローセクション</h2><p class="cms__page-desc">メインビジュアルの画像・動画・背景設定</p></div>
+    <div class="cms__card">
+      <div class="cms__card-title">背景タイプ</div>
+      <div class="cms__field">
+        <label class="cms__label">表示モード</label>
+        <select class="cms__input" onchange="config.theme.heroType=this.value;renderCurrentPage()">
+          <option value="gradient" ${t.heroType==='gradient'?'selected':''}>グラデーション（デフォルト）</option>
+          <option value="image" ${t.heroType==='image'?'selected':''}>背景画像（パララックス）</option>
+          <option value="video" ${t.heroType==='video'?'selected':''}>背景動画</option>
+        </select>
+      </div>
+    </div>
+    ${t.heroType === 'image' ? `
+    <div class="cms__card">
+      <div class="cms__card-title">背景画像 <span class="badge">パララックス対応</span></div>
+      <div class="cms__note">💡 画像の上にオーバーレイがかかるのでテキストの視認性は自動で確保されます</div>
+      <div class="cms__field">
+        ${dropzoneHTML('config.theme.heroBackground', t.heroBackground, { label: '背景画像をドロップ', hint: '推奨: 1920×1080以上の高解像度画像' })}
+      </div>
+    </div>` : ''}
+    ${t.heroType === 'video' ? `
+    <div class="cms__card">
+      <div class="cms__card-title">背景動画 <span class="badge">ループ再生</span></div>
+      <div class="cms__note cms__note-blue">🎬 MP4推奨。動画はミュート＋ループで自動再生されます。モバイルではフォールバック画像が表示されます。</div>
+      <div class="cms__field">
+        <label class="cms__label">動画</label>
+        ${dropzoneHTML('config.theme.heroVideo', t.heroVideo, { accept: 'video/mp4,video/webm', label: '動画ファイルをドロップ', hint: 'MP4, WebM (10MB以下推奨)' })}
+      </div>
+      <div class="cms__field">
+        <label class="cms__label">フォールバック画像 <span class="cms__label-hint">動画が再生できない場合に表示</span></label>
+        ${dropzoneHTML('config.theme.heroBackground', t.heroBackground, { label: 'フォールバック画像をドロップ' })}
+      </div>
+    </div>` : ''}
+    <div class="cms__card">
+      <div class="cms__card-title">メインビジュアル画像</div>
+      <div class="cms__field">
+        <label class="cms__label">ヒーロー画像（右側に表示）</label>
+        ${dropzoneHTML('content.hero.image', content.hero.image)}
+      </div>
+    </div>`;
+}
+
+function pgNews(el) {
+  const n = content.news;
+  el.innerHTML = `
+    <div class="cms__page-header"><h2 class="cms__page-title">お知らせ (NEWS)</h2></div>
+    <div class="cms__card">
+      <div class="cms__card-title">セクション設定</div>
+      <div class="cms__input-row">
+        <div class="cms__field"><label class="cms__label">英語タイトル</label><input class="cms__input" value="${esc(n.titleEn)}" onchange="content.news.titleEn=this.value"></div>
+        <div class="cms__field"><label class="cms__label">日本語タイトル</label><input class="cms__input" value="${esc(n.titleJa)}" onchange="content.news.titleJa=this.value"></div>
+      </div>
+      <div class="cms__field"><label class="cms__label">一覧URL</label><input class="cms__input" value="${esc(n.listUrl)}" onchange="content.news.listUrl=this.value"></div>
+    </div>
+    <div class="cms__card">
+      <div class="cms__card-title">お知らせ一覧</div>
+      <div>${n.items.map((item,i) => repeaterItem('お知らせ', i, `
         <div class="cms__input-row">
           <div class="cms__field"><label class="cms__label">日付</label><input class="cms__input" value="${esc(item.date)}" onchange="content.news.items[${i}].date=this.value"></div>
           <div class="cms__field"><label class="cms__label">URL</label><input class="cms__input" value="${esc(item.url)}" onchange="content.news.items[${i}].url=this.value"></div>
         </div>
         <div class="cms__field"><label class="cms__label">タイトル</label><input class="cms__input" value="${esc(item.title)}" onchange="content.news.items[${i}].title=this.value"></div>
-      </div>`;
-    }
+      `, `removeItem(content.news.items,${i})`)).join('')}</div>
+      <button class="cms__add-btn" onclick="content.news.items.push({date:'',title:'',url:'#'});renderCurrentPage()">＋ 追加</button>
+    </div>`;
+}
 
-    function valueItemHTML(item, i) {
-      return `<div class="cms__repeater-item">
-        <div class="cms__repeater-header">
-          <span class="cms__repeater-label">${item.titleEn || '項目 ' + (i + 1)}</span>
-          <button class="cms__repeater-remove" onclick="removeValueItem(${i})">削除</button>
-        </div>
+function pgMessage(el) {
+  const m = content.message;
+  el.innerHTML = `
+    <div class="cms__page-header"><h2 class="cms__page-title">メッセージ</h2></div>
+    <div class="cms__card">
+      <div class="cms__card-title">セクション設定</div>
+      <div class="cms__input-row">
+        <div class="cms__field"><label class="cms__label">英語タイトル</label><input class="cms__input" value="${esc(m.titleEn)}" onchange="content.message.titleEn=this.value"></div>
+        <div class="cms__field"><label class="cms__label">日本語タイトル</label><input class="cms__input" value="${esc(m.titleJa)}" onchange="content.message.titleJa=this.value"></div>
+      </div>
+    </div>
+    <div class="cms__card">
+      <div class="cms__card-title">メッセージ本文</div>
+      <div class="cms__field"><label class="cms__label">画像</label>${dropzoneHTML('content.message.image', m.image)}</div>
+      <div class="cms__field"><label class="cms__label">見出し</label><input class="cms__input" value="${esc(m.heading)}" onchange="content.message.heading=this.value"></div>
+      <div class="cms__field"><label class="cms__label">本文 <span class="cms__label-hint">改行で段落分け</span></label><textarea class="cms__input" onchange="content.message.body=this.value">${esc(m.body)}</textarea></div>
+    </div>
+    <div class="cms__card">
+      <div class="cms__card-title">Vision / Mission</div>
+      <div>${m.values.map((v,i) => repeaterItem(v.titleEn||'項目', i, `
         <div class="cms__input-row">
-          <div class="cms__field"><label class="cms__label">英語タイトル</label><input class="cms__input" value="${esc(item.titleEn)}" onchange="content.message.values[${i}].titleEn=this.value"></div>
-          <div class="cms__field"><label class="cms__label">日本語タイトル</label><input class="cms__input" value="${esc(item.titleJa)}" onchange="content.message.values[${i}].titleJa=this.value"></div>
+          <div class="cms__field"><label class="cms__label">英語</label><input class="cms__input" value="${esc(v.titleEn)}" onchange="content.message.values[${i}].titleEn=this.value"></div>
+          <div class="cms__field"><label class="cms__label">日本語</label><input class="cms__input" value="${esc(v.titleJa)}" onchange="content.message.values[${i}].titleJa=this.value"></div>
         </div>
-        <div class="cms__field"><label class="cms__label">キャッチ</label><input class="cms__input" value="${esc(item.catch)}" onchange="content.message.values[${i}].catch=this.value"></div>
-        <div class="cms__field"><label class="cms__label">本文</label><textarea class="cms__input" onchange="content.message.values[${i}].body=this.value">${esc(item.body)}</textarea></div>
-      </div>`;
-    }
-
-    function msgBtnHTML(item, i) {
-      return `<div class="cms__repeater-item">
-        <div class="cms__repeater-header">
-          <span class="cms__repeater-label">ボタン ${i + 1}</span>
-          <button class="cms__repeater-remove" onclick="removeMsgBtn(${i})">削除</button>
-        </div>
+        <div class="cms__field"><label class="cms__label">キャッチ</label><input class="cms__input" value="${esc(v.catch)}" onchange="content.message.values[${i}].catch=this.value"></div>
+        <div class="cms__field"><label class="cms__label">本文</label><textarea class="cms__input" onchange="content.message.values[${i}].body=this.value">${esc(v.body)}</textarea></div>
+      `, `removeItem(content.message.values,${i})`)).join('')}</div>
+      <button class="cms__add-btn" onclick="content.message.values.push({titleEn:'',titleJa:'',catch:'',body:''});renderCurrentPage()">＋ 追加</button>
+    </div>
+    <div class="cms__card">
+      <div class="cms__card-title">ボタン</div>
+      <div>${m.buttons.map((b,i) => repeaterItem('ボタン', i, `
         <div class="cms__input-row">
-          <div class="cms__field"><label class="cms__label">ラベル</label><input class="cms__input" value="${esc(item.label)}" onchange="content.message.buttons[${i}].label=this.value"></div>
-          <div class="cms__field"><label class="cms__label">URL</label><input class="cms__input" value="${esc(item.url)}" onchange="content.message.buttons[${i}].url=this.value"></div>
-        </div>
-      </div>`;
-    }
+          <div class="cms__field"><label class="cms__label">ラベル</label><input class="cms__input" value="${esc(b.label)}" onchange="content.message.buttons[${i}].label=this.value"></div>
+          <div class="cms__field"><label class="cms__label">URL</label><input class="cms__input" value="${esc(b.url)}" onchange="content.message.buttons[${i}].url=this.value"></div>
+        </div>`, `removeItem(content.message.buttons,${i})`)).join('')}</div>
+      <button class="cms__add-btn" onclick="content.message.buttons.push({label:'',url:''});renderCurrentPage()">＋ 追加</button>
+    </div>`;
+}
 
-    function serviceItemHTML(item, i) {
-      return `<div class="cms__repeater-item">
-        <div class="cms__repeater-header">
-          <span class="cms__repeater-label">${item.title || 'サービス ' + (i + 1)}</span>
-          <button class="cms__repeater-remove" onclick="removeServiceItem(${i})">削除</button>
-        </div>
+function pgService(el) {
+  const s = content.service;
+  el.innerHTML = `
+    <div class="cms__page-header"><h2 class="cms__page-title">サービス</h2></div>
+    <div class="cms__card">
+      <div class="cms__card-title">セクション設定</div>
+      <div class="cms__input-row">
+        <div class="cms__field"><label class="cms__label">英語タイトル</label><input class="cms__input" value="${esc(s.titleEn)}" onchange="content.service.titleEn=this.value"></div>
+        <div class="cms__field"><label class="cms__label">日本語タイトル</label><input class="cms__input" value="${esc(s.titleJa)}" onchange="content.service.titleJa=this.value"></div>
+      </div>
+    </div>
+    <div class="cms__card">
+      <div class="cms__card-title">サービス一覧</div>
+      <div>${s.items.map((item,i) => repeaterItem(item.title||'サービス', i, `
         <div class="cms__field"><label class="cms__label">タイトル</label><input class="cms__input" value="${esc(item.title)}" onchange="content.service.items[${i}].title=this.value"></div>
-        <div class="cms__field"><label class="cms__label">画像URL</label><input class="cms__input" value="${esc(item.image)}" onchange="content.service.items[${i}].image=this.value"></div>
+        <div class="cms__field"><label class="cms__label">画像</label>${dropzoneHTML('content.service.items.'+i+'.image', item.image)}</div>
         <div class="cms__field"><label class="cms__label">説明文</label><textarea class="cms__input" onchange="content.service.items[${i}].body=this.value">${esc(item.body)}</textarea></div>
         <div class="cms__input-row">
           <div class="cms__field"><label class="cms__label">リンクURL</label><input class="cms__input" value="${esc(item.url)}" onchange="content.service.items[${i}].url=this.value"></div>
           <div class="cms__field"><label class="cms__label">リンクテキスト</label><input class="cms__input" value="${esc(item.linkText)}" onchange="content.service.items[${i}].linkText=this.value"></div>
-        </div>
-      </div>`;
-    }
+        </div>`, `removeItem(content.service.items,${i})`)).join('')}</div>
+      <button class="cms__add-btn" onclick="content.service.items.push({title:'',image:'',body:'',url:'#',linkText:'詳細を見る'});renderCurrentPage()">＋ 追加</button>
+    </div>`;
+}
 
-    function photoItemHTML(src, i) {
-      return `<div class="cms__repeater-item">
-        <div class="cms__repeater-header">
-          <span class="cms__repeater-label">写真 ${i + 1}</span>
-          <button class="cms__repeater-remove" onclick="removePhotoItem(${i})">削除</button>
-        </div>
-        <div class="cms__field"><label class="cms__label">画像URL</label><input class="cms__input" value="${esc(src)}" onchange="content.photo.images[${i}]=this.value"></div>
-      </div>`;
-    }
+function pgPhoto(el) {
+  const p = content.photo;
+  el.innerHTML = `
+    <div class="cms__page-header"><h2 class="cms__page-title">職場風景 (PHOTO)</h2></div>
+    <div class="cms__card">
+      <div class="cms__card-title">セクション設定</div>
+      <div class="cms__input-row">
+        <div class="cms__field"><label class="cms__label">英語タイトル</label><input class="cms__input" value="${esc(p.titleEn)}" onchange="content.photo.titleEn=this.value"></div>
+        <div class="cms__field"><label class="cms__label">日本語タイトル</label><input class="cms__input" value="${esc(p.titleJa)}" onchange="content.photo.titleJa=this.value"></div>
+      </div>
+    </div>
+    <div class="cms__card">
+      <div class="cms__card-title">写真一覧 <span class="badge">ドラッグ＆ドロップ対応</span></div>
+      <div>${p.images.map((src,i) => repeaterItem('写真', i, `
+        <div class="cms__field">${dropzoneHTML('content.photo.images.'+i, src)}</div>
+      `, `removeItem(content.photo.images,${i})`)).join('')}</div>
+      <button class="cms__add-btn" onclick="content.photo.images.push('');renderCurrentPage()">＋ 写真を追加</button>
+    </div>`;
+}
 
-    function officeItemHTML(item, i) {
-      return `<div class="cms__repeater-item">
-        <div class="cms__repeater-header">
-          <span class="cms__repeater-label">${item.name || 'オフィス ' + (i + 1)}${item.isMain ? ' ★本社' : ''}</span>
-          <button class="cms__repeater-remove" onclick="removeOfficeItem(${i})">削除</button>
-        </div>
+function pgAccess(el) {
+  const a = content.access;
+  el.innerHTML = `
+    <div class="cms__page-header"><h2 class="cms__page-title">アクセス</h2></div>
+    <div class="cms__card">
+      <div class="cms__card-title">セクション設定</div>
+      <div class="cms__input-row">
+        <div class="cms__field"><label class="cms__label">英語タイトル</label><input class="cms__input" value="${esc(a.titleEn)}" onchange="content.access.titleEn=this.value"></div>
+        <div class="cms__field"><label class="cms__label">日本語タイトル</label><input class="cms__input" value="${esc(a.titleJa)}" onchange="content.access.titleJa=this.value"></div>
+      </div>
+      <div class="cms__field"><label class="cms__label">注意書き</label><textarea class="cms__input" onchange="content.access.note=this.value">${esc(a.note)}</textarea></div>
+    </div>
+    <div class="cms__card">
+      <div class="cms__card-title">オフィス一覧</div>
+      <div>${a.offices.map((o,i) => repeaterItem(o.name+(o.isMain?' ★本社':''), i, `
         <div class="cms__input-row">
-          <div class="cms__field"><label class="cms__label">名称</label><input class="cms__input" value="${esc(item.name)}" onchange="content.access.offices[${i}].name=this.value"></div>
+          <div class="cms__field"><label class="cms__label">名称</label><input class="cms__input" value="${esc(o.name)}" onchange="content.access.offices[${i}].name=this.value"></div>
           <div class="cms__field"><label class="cms__label">本社？</label>
             <select class="cms__input" onchange="content.access.offices[${i}].isMain=(this.value==='true')">
-              <option value="true"${item.isMain ? ' selected' : ''}>はい（大きく表示）</option>
-              <option value="false"${!item.isMain ? ' selected' : ''}>いいえ</option>
-            </select>
-          </div>
+              <option value="true" ${o.isMain?'selected':''}>はい</option><option value="false" ${!o.isMain?'selected':''}>いいえ</option>
+            </select></div>
         </div>
-        <div class="cms__field"><label class="cms__label">住所</label><input class="cms__input" value="${esc(item.address)}" onchange="content.access.offices[${i}].address=this.value"></div>
-        <div class="cms__field"><label class="cms__label">Google Map リンク</label><input class="cms__input" value="${esc(item.mapUrl || '')}" onchange="content.access.offices[${i}].mapUrl=this.value"></div>
-        <div class="cms__field"><label class="cms__label">Google Map 埋め込みURL <span class="cms__label-hint">iframe用</span></label><input class="cms__input" value="${esc(item.mapEmbed || '')}" onchange="content.access.offices[${i}].mapEmbed=this.value"></div>
-      </div>`;
-    }
+        <div class="cms__field"><label class="cms__label">住所</label><input class="cms__input" value="${esc(o.address)}" onchange="content.access.offices[${i}].address=this.value"></div>
+        <div class="cms__input-row">
+          <div class="cms__field"><label class="cms__label">Google Map リンク</label><input class="cms__input" value="${esc(o.mapUrl||'')}" onchange="content.access.offices[${i}].mapUrl=this.value"></div>
+          <div class="cms__field"><label class="cms__label">Map埋め込みURL</label><input class="cms__input" value="${esc(o.mapEmbed||'')}" onchange="content.access.offices[${i}].mapEmbed=this.value"></div>
+        </div>`, `removeItem(content.access.offices,${i})`)).join('')}</div>
+      <button class="cms__add-btn" onclick="content.access.offices.push({name:'',address:'',mapUrl:'',mapEmbed:'',isMain:false});renderCurrentPage()">＋ 追加</button>
+    </div>`;
+}
 
-    // ==========================================
-    // Repeater Actions
-    // ==========================================
-    function addNavItem() { config.nav.push({ label: '', href: '#' }); renderCurrentPage(); }
-    function removeNavItem(i) { config.nav.splice(i, 1); renderCurrentPage(); }
-    function addFooterLink() { config.footer.links.push({ label: '', href: '' }); renderCurrentPage(); }
-    function removeFooterLink(i) { config.footer.links.splice(i, 1); renderCurrentPage(); }
-    function addNewsItem() { content.news.items.push({ date: '', title: '', url: '#' }); renderCurrentPage(); }
-    function removeNewsItem(i) { content.news.items.splice(i, 1); renderCurrentPage(); }
-    function addValueItem() { content.message.values.push({ titleEn: '', titleJa: '', catch: '', body: '' }); renderCurrentPage(); }
-    function removeValueItem(i) { content.message.values.splice(i, 1); renderCurrentPage(); }
-    function addMsgBtn() { content.message.buttons.push({ label: '', url: '' }); renderCurrentPage(); }
-    function removeMsgBtn(i) { content.message.buttons.splice(i, 1); renderCurrentPage(); }
-    function addServiceItem() { content.service.items.push({ title: '', image: '', body: '', url: '#', linkText: '詳細を見る' }); renderCurrentPage(); }
-    function removeServiceItem(i) { content.service.items.splice(i, 1); renderCurrentPage(); }
-    function addPhotoItem() { content.photo.images.push(''); renderCurrentPage(); }
-    function removePhotoItem(i) { content.photo.images.splice(i, 1); renderCurrentPage(); }
-    function addOfficeItem() { content.access.offices.push({ name: '', address: '', mapUrl: '', mapEmbed: '', isMain: false }); renderCurrentPage(); }
-    function removeOfficeItem(i) { content.access.offices.splice(i, 1); renderCurrentPage(); }
+function pgMeta(el) {
+  const m = config.meta || {};
+  el.innerHTML = `
+    <div class="cms__page-header"><h2 class="cms__page-title">SEO / メタ情報</h2><p class="cms__page-desc">検索結果やSNSシェア時の表示設定</p></div>
+    <div class="cms__note">💡 メタディスクリプションは検索結果に表示される120〜160文字程度の説明文です</div>
+    <div class="cms__card">
+      <div class="cms__card-title">メタディスクリプション</div>
+      <div class="cms__field">
+        <label class="cms__label">説明文 <span class="cms__label-hint" id="metaCount">${(m.description||'').length}/160</span></label>
+        <textarea class="cms__input" style="min-height:80px" oninput="config.meta.description=this.value;document.getElementById('metaCount').textContent=this.value.length+'/160'" onchange="config.meta.description=this.value">${esc(m.description||'')}</textarea>
+      </div>
+    </div>
+    <div class="cms__card">
+      <div class="cms__card-title">OGP画像 <span class="badge">SNSシェア用</span></div>
+      <div class="cms__field">
+        <label class="cms__label">OG画像 <span class="cms__label-hint">推奨: 1200×630px</span></label>
+        ${dropzoneHTML('config.meta.ogImage', m.ogImage||'', { label: 'OG画像をドロップ', hint: '1200×630px推奨' })}
+      </div>
+    </div>`;
+}
 
-    // ==========================================
-    // Color field helper
-    // ==========================================
-    function colorField(label, key, value) {
-      return `<div class="cms__field">
-        <label class="cms__label">${label}</label>
-        <div class="cms__color-group">
-          <input class="cms__input cms__input--color" type="color" value="${value}" onchange="config.theme.${key}=this.value; this.nextElementSibling.value=this.value">
-          <input class="cms__input cms__input--text" type="text" value="${value}" onchange="config.theme.${key}=this.value; this.previousElementSibling.value=this.value">
-        </div>
-      </div>`;
-    }
+function pgExport(el) {
+  el.innerHTML = `
+    <div class="cms__page-header"><h2 class="cms__page-title">エクスポート</h2><p class="cms__page-desc">編集した設定をJSON形式でダウンロード</p></div>
+    <div class="cms__note cms__note-blue">📦 Base64の画像データが含まれている場合、JSONファイルが大きくなります。本番環境では画像をサーバーにアップしてURLに差し替えてください。</div>
+    <div class="cms__card">
+      <div class="cms__card-title">config.json <span class="badge">サイト設定</span></div>
+      <pre style="background:#f0f2f5;padding:16px;border-radius:8px;font-size:11px;overflow-x:auto;max-height:300px;font-family:'Outfit',monospace;line-height:1.5">${esc(JSON.stringify(config, null, 2))}</pre>
+      <br><button class="cms__btn cms__btn--outline" onclick="downloadJSON('config.json',config)">ダウンロード</button>
+    </div>
+    <div class="cms__card">
+      <div class="cms__card-title">content.json <span class="badge">コンテンツ</span></div>
+      <pre style="background:#f0f2f5;padding:16px;border-radius:8px;font-size:11px;overflow-x:auto;max-height:300px;font-family:'Outfit',monospace;line-height:1.5">${esc(JSON.stringify(content, null, 2))}</pre>
+      <br><button class="cms__btn cms__btn--outline" onclick="downloadJSON('content.json',content)">ダウンロード</button>
+    </div>`;
+}
 
-    // ==========================================
-    // Actions
-    // ==========================================
-    function saveData() {
-      downloadJSON('config.json', config);
-      setTimeout(() => downloadJSON('content.json', content), 300);
-      showToast('JSONファイルをダウンロードしました！', 'success');
-    }
+// ==========================================
+// REPEATER HELPER
+// ==========================================
+function repeaterItem(label, index, innerHTML, removeAction) {
+  return `<div class="cms__repeater-item">
+    <div class="cms__repeater-header">
+      <span class="cms__repeater-label">${label} ${index + 1}</span>
+      <button class="cms__repeater-remove" onclick="${removeAction};renderCurrentPage()">削除</button>
+    </div>
+    ${innerHTML}
+  </div>`;
+}
 
-    function resetData() {
-      if (confirm('変更をリセットしますか？元のJSONファイルを再読み込みします。')) {
-        init();
-        showToast('リセットしました', 'success');
-      }
-    }
+function removeItem(arr, i) { arr.splice(i, 1); }
 
-    function previewSite() {
-      window.open('index.html', '_blank');
-    }
+// ==========================================
+// ACTIONS
+// ==========================================
+function saveData() {
+  downloadJSON('config.json', config);
+  setTimeout(() => downloadJSON('content.json', content), 300);
+  showToast('JSONファイルをダウンロードしました！', 'success');
+}
 
-    function downloadJSON(filename, data) {
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      a.click();
-      URL.revokeObjectURL(url);
-    }
+function resetData() {
+  if (confirm('変更をリセットしますか？')) { imageStore = {}; init(); showToast('リセットしました', 'success'); }
+}
 
-    function showToast(message, type = 'success') {
-      const toast = document.getElementById('toast');
-      toast.textContent = message;
-      toast.className = `cms__toast cms__toast--${type} is-visible`;
-      setTimeout(() => { toast.classList.remove('is-visible'); }, 3000);
-    }
+function previewSite() { window.open('index.html', '_blank'); }
 
-    // ==========================================
-    // Utils
-    // ==========================================
-    function esc(str) {
-      if (str == null) return '';
-      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
+function downloadJSON(filename, data) {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
 
-    // Go!
-    init();
-  </script>
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = `cms__toast cms__toast--${type} is-visible`;
+  setTimeout(() => t.classList.remove('is-visible'), 3000);
+}
+
+function esc(str) {
+  if (str == null) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+init();
+</script>
 </body>
 </html>
